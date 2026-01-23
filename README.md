@@ -4,16 +4,17 @@ This repository contains the **backend source** of my **personal portfolio**, bu
 
 Focused on clarity and consistency, prioritizing practical product constraints over heavy abstractions or theoretical scalability. It is lightweight, clear, integrates with **Notion**, and is already configured to **deploy on Vercel**.
 
-## Stack
+<br />
 
-<p align="center"> 
+## Project structure
+
+<p align="start"> 
+  Stack: &nbsp;
   <code>NestJS</code> · 
   <code>TypeScript</code> · 
   <code>Notion SDK</code> · 
   <code>Jest</code>
 </p>
-
-## Project structure
 
 ```bash
 src/
