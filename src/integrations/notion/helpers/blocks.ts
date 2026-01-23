@@ -1,5 +1,6 @@
 import type { Client } from '@notionhq/client'
-import type { NotionAnyBlock, HydratedBlock } from '../notion.types'
+
+import type { HydratedBlock, NotionAnyBlock } from '../notion.types'
 import { isFullBlock } from '../notion.types'
 
 export async function listAllChildrenBlocks(

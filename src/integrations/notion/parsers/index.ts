@@ -1,13 +1,14 @@
 import type { HydratedBlock } from '@/integrations/notion/notion.types'
-import { handleParagraph } from './handlers/paragraph'
-import { handleHeading } from './handlers/heading'
-import { handleBulletedList, handleNumberedList } from './handlers/list'
-import { handleTodo } from './handlers/todo'
-import { handleQuote } from './handlers/quote'
+
 import { handleCallout } from './handlers/callout'
 import { handleCode } from './handlers/code'
 import { handleDivider } from './handlers/divider'
+import { handleHeading } from './handlers/heading'
 import { handleImage } from './handlers/image'
+import { handleBulletedList, handleNumberedList } from './handlers/list'
+import { handleParagraph } from './handlers/paragraph'
+import { handleQuote } from './handlers/quote'
+import { handleTodo } from './handlers/todo'
 import { handleToggle } from './handlers/toggle'
 
 export type BlocksToTextOptions = { includeToggles?: boolean }

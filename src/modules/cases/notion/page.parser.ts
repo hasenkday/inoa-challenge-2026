@@ -1,14 +1,16 @@
 import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
-import { CASES_PROPS } from '../cases.props'
+
 import {
-  getPlainText,
-  getDateStart,
   getDateRange,
+  getDateStart,
   getNumber,
+  getPlainText,
   pageProps,
 } from '@/integrations/notion/helpers/props'
-import { getFirstFileUrl, buildTagline } from './utils'
-import type { CaseMeta, CaseCardDto } from '../cases.types'
+
+import { CASES_PROPS } from '../cases.props'
+import type { CaseCardDto, CaseMeta } from '../cases.types'
+import { buildTagline, getFirstFileUrl } from './utils'
 
 export function mapPageToMeta(page: PageObjectResponse): CaseMeta | null {
   const props = pageProps(page)

@@ -1,6 +1,6 @@
 import type {
-  PropertyItemObjectResponse,
   PageObjectResponse,
+  PropertyItemObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 
 export function getFirstFileUrl(prop: PropertyItemObjectResponse | undefined): string | undefined {

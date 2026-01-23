@@ -1,8 +1,9 @@
 import { hydrateBlocksTree } from '@/integrations/notion/helpers/blocks'
 import type { NotionClient } from '@/integrations/notion/notion.client'
 import { notionBlocksToMarkdownLines, toMarkdown } from '@/integrations/notion/parsers'
-import { normalizeCaseContent } from './content.parser'
+
 import type { CaseDetailDto } from '../cases.types'
+import { normalizeCaseContent } from './content.parser'
 
 export async function buildCaseDetail(
   notion: NotionClient,

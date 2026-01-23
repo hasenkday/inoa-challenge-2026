@@ -1,10 +1,11 @@
 import type {
+  DatePropertyItemObjectResponse,
   PageObjectResponse,
   PropertyItemObjectResponse,
-  TitlePropertyItemObjectResponse,
   RichTextPropertyItemObjectResponse,
-  DatePropertyItemObjectResponse,
+  TitlePropertyItemObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints'
+
 import { richTextToPlainText } from './rich-text'
 
 export type NotionProps = Record<string, PropertyItemObjectResponse>

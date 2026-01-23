@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Client } from '@notionhq/client'
+
 import { env } from '@/config/env'
 
 @Injectable()

@@ -1,6 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common'
-import { CasesService } from './cases.service'
+
 import { CacheSWR } from '@/common/decorators/cache-swr'
+
+import { CasesService } from './cases.service'
 import type { CaseCardDto, CaseMeta } from './cases.types'
 
 @Controller('api/cases')

@@ -1,15 +1,16 @@
 import {
   Body,
   Controller,
-  Post,
   HttpCode,
   HttpStatus,
+  Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common'
 import { Throttle } from '@nestjs/throttler'
-import { CreateContactDto } from './dto/create-contact.dto'
+
 import { ContactService } from './contact.service'
+import { CreateContactDto } from './dto/create-contact.dto'
 
 @Controller('api/contact')
 export class ContactController {

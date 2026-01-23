@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common'
-import { NotionClient } from '@/integrations/notion/notion.client'
+
 import { env } from '@/config/env'
+import { NotionClient } from '@/integrations/notion/notion.client'
+
 import { CONTACTS_PROPS, DEFAULT_STATUS } from './contact.props'
 import type { CreateContactInput } from './contact.types'
 

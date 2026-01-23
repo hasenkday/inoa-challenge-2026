@@ -1,5 +1,5 @@
-import type { HydratedBlock } from '../../notion.types'
 import { richTextToPlainText } from '../../helpers/rich-text'
+import type { HydratedBlock } from '../../notion.types'
 import { notionBlocksToMarkdownLines } from '../index'
 
 export function handleToggle(block: HydratedBlock, includeToggles: boolean): string[] {

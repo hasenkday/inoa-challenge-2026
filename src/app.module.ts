@@ -3,9 +3,9 @@ import { ConfigModule } from '@nestjs/config'
 import { ThrottlerModule } from '@nestjs/throttler'
 
 import { NotionModule } from './integrations/notion/notion.module'
-import { HealthModule } from './modules/health/health.module'
-import { ContactModule } from './modules/contact/contact.module'
 import { CasesModule } from './modules/cases/cases.module'
+import { ContactModule } from './modules/contact/contact.module'
+import { HealthModule } from './modules/health/health.module'
 
 @Module({
   imports: [

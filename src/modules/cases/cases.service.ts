@@ -1,12 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { NotionClient } from '@/integrations/notion/notion.client'
+
 import { env } from '@/config/env'
 import { getPrimaryDataSourceId } from '@/integrations/notion/helpers/data-source'
+import { NotionClient } from '@/integrations/notion/notion.client'
+
 import { CASES_PROPS } from './cases.props'
 import type { CaseCardDto, CaseMeta } from './cases.types'
-import { isFullPage } from './notion/utils'
-import { mapPageToCard, mapPageToMeta } from './notion/page.parser'
 import { buildCaseDetail } from './notion/content.builder'
+import { mapPageToCard, mapPageToMeta } from './notion/page.parser'
+import { isFullPage } from './notion/utils'
 
 type QueryArgs = Omit<
   Parameters<NotionClient['client']['dataSources']['query']>[0],
