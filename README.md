@@ -1,8 +1,8 @@
-# Notion to Nest API Template
+# My Portfolio API
 
-This is a personal backend template I use to start projects quickly — for studies, experiments, small products, and portfolio pieces.
+This repository contains the **backend source** of my **personal portfolio**, built with NestJS and integrated with Notion. It reflects the structure and workflow I use to design and build API-driven products that support my portfolio frontend.
 
-It is lightweight, clear, integrates with **Notion**, and is already configured to **deploy on Vercel**.
+Focused on clarity and consistency, prioritizing practical product constraints over heavy abstractions or theoretical scalability. It is lightweight, clear, integrates with **Notion**, and is already configured to **deploy on Vercel**.
 
 ## Stack
 
@@ -26,95 +26,20 @@ src/
 │   ├── contact/ # contact feature module
 │   │   ├── contact.controller.ts
 │   │   ├── contact.service.ts
-│   │   ├── contact.props.ts # Notion property mapping
+│   │   ├── contact.props.ts
 │   │   └── dto/
 │   │       └── create-contact.dto.ts
+│   │
+│   ├── cases/ # cases feature module
+│   │   ├── cases.controller.ts
+│   │   ├── cases.service.ts
+│   │   └── cases.props.ts
+│   │
 │   └── health/ # health check module
 │
 ├── app.module.ts # root application module
 │
 └── main.ts # application entry point
-```
-
-## Usage
-
-```
-# Install dependencies and run the project
-
-npm install
-npm run start:dev
-```
-
-### Running tests
-
-```
-# Unit tests
-npm run test
-
-# End-to-end tests
-npm run test:e2e
-
-# Coverage report
-npm run test:cov
-```
-
-### Notion setup
-
-To use this template you need a Notion database for contacts.
-
-#### 1. Create a new database in Notion with the following columns:
-
-- Name (Title)
-- Channel (Select)
-- Contact (Rich text)
-- Message (Rich text)
-- Date Sent (Date)
-- Status (Status)
-
-#### 2. Create a Notion integration:
-
-- Go to Notion integrations (notion.so).
-- Create a new internal integration.
-- Copy the integration token.
-
-#### 3. Connect the integration to your database:
-
-- Open the database page.
-- Click Share → Add connections.
-- Add your integration with edit permissions.
-
-#### 4. Add your integration token and database ID to .env:
-
-```env
-  NOTION_TOKEN=your-secret-token
-  NOTION_CONTACTS_DB_ID=your-database-id
-```
-
-#### Example request
-
-```
-# POST /api/contact
-# Content-Type: application/json
-
-{
-  "name": "Test User",
-  "channel": "E-mail",
-  "contact": "test@example.com",
-  "message": "Hello from API!"
-}
-```
-
-#### Example response
-
-```json
-{
-  "success": true,
-  "message": "Contact saved successfully",
-  "data": {
-    "name": "Test User",
-    "dateSent": "2026-01-23T12:53:00.000Z"
-  }
-}
 ```
 
 ---
