@@ -41,10 +41,3 @@ src/
 │
 └── main.ts # application entry point
 ```
-
----
-
-<br />
-<p align="center">
-  This repository is shared for reference and personal use.
-</p>
