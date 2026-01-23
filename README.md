@@ -4,20 +4,21 @@ This is a personal front-end template I use to start projects quickly — for st
 
 The focus is **speed, clarity, and visual consistency**, without turning the setup into something heavy or over-engineered.
 
-## Stack
+<br />
 
-<p align="center">
+## Project structure
+
+<p align="start"> 
+  Stack: &nbsp;
   <code>Vite</code> ·
   <code>React</code> ·
   <code>TypeScript</code> ·
   <code>Tailwind CSS v4</code> ·
-  <code>CSS Modules</code> · <br />
+  <code>CSS Modules</code> ·
   <code>@theme tokens</code> ·
   <code>shadcn/ui</code> ·
   <code>Plop</code>
 </p>
-
-## Project structure
 
 ```bash
 src/
