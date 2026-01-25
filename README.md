@@ -20,7 +20,6 @@ src/
 │
 ├── integrations/
 │   └── notion/ # Notion client wrapper
-│   └── supabase/ # Database management with Postgres (not added yet)
 │
 ├── modules/
 │   ├── contact/ # contact feature module
