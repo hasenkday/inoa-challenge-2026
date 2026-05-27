@@ -1,4 +1,5 @@
 import { Button } from '@/components/atoms/button'
+import { DailyClosingChart } from '@/components/organisms/charts/daily-closing'
 
 export default function HomePage() {
   const cookie = () => {
@@ -11,6 +12,9 @@ export default function HomePage() {
       <Button onClick={cookie} variant="fill" color="primary">
         A click, a cookie
       </Button>
+      <section className="w-full max-w-4xl">
+        <DailyClosingChart />
+      </section>
     </div>
   )
 }
