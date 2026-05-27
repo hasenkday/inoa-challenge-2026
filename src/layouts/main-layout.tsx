@@ -10,7 +10,7 @@ export function MainLayout() {
         style={{ backgroundImage: `url(${backgroundImg})` }}
       />
 
-      <main className="relative z-10 min-h-screen">
+      <main className="relative z-10 flex min-h-screen w-full">
         <Outlet />
       </main>
     </div>
