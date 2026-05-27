@@ -1,18 +1,16 @@
 import { Outlet } from 'react-router-dom'
 
-import backgroundImg from '@/assets/chart-bg.svg'
+import backgroundImg from '@/assets/chart-bg.webp'
 
 export function MainLayout() {
   return (
-    <div className="bg-neutral-darkest relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden">
       <div
-        className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat opacity-60 blur-[120px]"
+        className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-2xl"
         style={{ backgroundImage: `url(${backgroundImg})` }}
       />
 
-      <div className="absolute inset-0 bg-black/40" />
-
-      <main className="relative z-10">
+      <main className="relative z-10 min-h-screen">
         <Outlet />
       </main>
     </div>
