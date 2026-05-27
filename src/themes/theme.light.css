@@ -1,0 +1,23 @@
+/**
+ * ============================================================
+ * THEME LIGHT
+ * Overrides only what changes
+ * ============================================================
+ */
+
+html.light {
+  --color-bg: var(--color-neutral-lightest);
+  --color-surface: white;
+
+  --color-text: var(--color-neutral-darkest);
+  --color-text-muted: var(--color-neutral-dark);
+  --color-text-subtle: var(--color-neutral-light);
+
+  --color-border: var(--color-neutral-lighter);
+
+  --button-filled-bg: var(--color-accent-dark);
+  --button-filled-text: var(--color-neutral-lightest);
+
+  --button-ghost-bg: var(--color-neutral-lightest);
+  --button-ghost-text: var(--color-neutral-darkest);
+}

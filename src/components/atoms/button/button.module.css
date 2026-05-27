@@ -1,13 +1,59 @@
 @reference "../../../themes/index.css";
 
 .root {
-  @apply font-primary cursor-pointer;
+  @apply inline-flex items-center justify-center gap-2 transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50;
 }
 
-.primary {
-  @apply bg-primary text-light;
+/* ========== VARIANTS ========== */
+.fill {
+  @apply border border-transparent;
 }
 
-.secondary {
-  @apply bg-secondary;
+.outline {
+  @apply border bg-transparent;
+}
+
+.ghost {
+  @apply border border-transparent bg-transparent;
+}
+
+/* ========== SIZES ========== */
+.md {
+  @apply text-md h-12 rounded-full px-6 font-black uppercase;
+}
+
+.sm {
+  @apply font-primary h-10 rounded-md px-5 text-sm font-medium;
+}
+
+.icon {
+  @apply h-10 w-10 rounded-md p-2;
+}
+
+/* ========== COLORS ========== */
+
+/* Dark */
+.default.fill {
+  @apply bg-neutral-lightest text-neutral-darkest hover:bg-neutral-lighter;
+}
+
+.default.outline {
+  @apply border-neutral-light text-neutral-lightest hover:bg-neutral-darker;
+}
+
+.default.ghost {
+  @apply text-neutral-lightest hover:bg-neutral-darker;
+}
+
+/* Primary */
+.primary.fill {
+  @apply bg-primary-base text-neutral-darkest hover:bg-primary-dark;
+}
+
+.primary.outline {
+  @apply border-primary-base text-primary-base hover:bg-primary-darkest;
+}
+
+.primary.ghost {
+  @apply text-primary-base hover:bg-primary-darkest;
 }

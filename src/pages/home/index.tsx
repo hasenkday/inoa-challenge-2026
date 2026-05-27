@@ -1,6 +1,6 @@
 import { Button } from '@/components/atoms/button'
 
-export function HomePage() {
+export default function HomePage() {
   const cookie = () => {
     alert('🍪')
   }
@@ -8,7 +8,7 @@ export function HomePage() {
   return (
     <div className="bg-dark text-light flex min-h-screen flex-col items-center justify-center gap-4">
       Let's bake some ideas!
-      <Button onClick={cookie} variant="primary">
+      <Button onClick={cookie} variant="fill" color="primary">
         A click, a cookie
       </Button>
     </div>

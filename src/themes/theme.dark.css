@@ -1,15 +1,160 @@
 /**
  * ============================================================
- * THEME — DARK
- * Overrides only what changes
+ * THEME DARK (default)
+ * Defines primitive and semantic tokens
  * ============================================================
  */
-
 @theme {
-  /* NEUTRALS */
-  --color-dark: #ffffff;
-  --color-light: #1a1a1a;
+  /* RESET DEFAULT TAILWIND VARIABLES */
+  --text-*: initial;
+  --font-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
 
-  /* BRAND COLORS */
-  --color-primary: #9c6edb;
+  --color-inherit: inherit;
+  --color-current: currentColor;
+  --color-transparent: transparent;
+
+  /* ------------------------------ */
+  /* ------------------------------ */
+
+  /* Font Family */
+  --font-primary: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Sizes */
+  --text-h1: clamp(1.5rem, 3.5vw, 2rem); /* 24 → 32 */
+  --text-h2: clamp(1.25rem, 2.8vw, 1.5rem); /* 20 → 24 */
+  --text-h3: clamp(1.125rem, 2.4vw, 1.25rem); /* 18 → 20 */
+  --text-h4: clamp(1rem, 2vw, 1.125rem); /* 16 → 18 */
+  --text-h5: clamp(0.875rem, 1.6vw, 1rem); /* 14 → 16 */
+
+  --text-subhead: clamp(1rem, 2vw, 1.125rem); /* 16 → 18 */
+  --text-md: clamp(0.875rem, 1.4vw, 1rem); /* 14 → 16 */
+  --text-sm: clamp(0.75rem, 1.2vw, 0.875rem); /* 12 → 14 */
+  --text-xs: clamp(0.625rem, 1vw, 0.6875rem); /* 10 → 11 */
+
+  --text-btn-md: clamp(0.875rem, 1.1vw, 1rem); /* 14 → 16 */
+  --text-btn-sm: clamp(0.75rem, 1vw, 0.875rem); /* 12 → 14 */
+
+  /* Letter spacing */
+  --tracking-xs: 0.02em;
+  --tracking-sm: 0.04em;
+  --tracking-md: 0.06em;
+
+  /* Line heights */
+  --leading-xs: 1.32;
+  --leading-sm: 1.48;
+  --leading-md: 1.52;
+  --leading-lg: 1.62;
+
+  /* List spacing */
+  --list-spacing: 0.02em;
+
+  /* Paragraph spacing */
+  --space-p-normal: 1em; /* default for everything */
+  --space-p-tight: 0.75em; /* tighter for main headline only */
+
+  /* ------------------------------ */
+  /* ------------------------------ */
+
+  /* SHAPE */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* ELEVATION / SHADOWS  */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.16);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.16);
+
+  /* ------------------------------ */
+  /* PRIMITIVE COLORS
+  /* ------------------------------ */
+
+  /* NEUTRALS */
+  --color-neutral-lightest: #f1f2f9;
+  --color-neutral-lighter: #c3c4cb;
+  --color-neutral-light: #95959d;
+  --color-neutral-dark: #656770;
+  --color-neutral-darker: #373842;
+  --color-neutral-darkest: #090a14;
+
+  /* PRIMARY */
+  --color-primary-lightest: #dff8ff;
+  --color-primary-light: #79c2fa;
+  --color-primary-base: #05ccf6;
+  --color-primary-dark: #054e87;
+  --color-primary-darkest: #02263f;
+
+  /* BLUE */
+  --color-blue-lightest: #dff3ff;
+  --color-blue-light: #6dbdff;
+  --color-blue-base: #0092fb;
+  --color-blue-dark: #005d9f;
+  --color-blue-darkest: #032742;
+
+  /* ORANGE */
+  --color-orange-lightest: #fff1df;
+  --color-orange-light: #ffb15c;
+  --color-orange-base: #fb7e00;
+  --color-orange-dark: #9a4c00;
+  --color-orange-darkest: #3d1d00;
+
+  /* RED */
+  --color-red-lightest: #ffe5e2;
+  --color-red-light: #ff7a6e;
+  --color-red-base: #fb1500;
+  --color-red-dark: #9f1307;
+  --color-red-darkest: #3f0804;
+
+  /* GREEN */
+  --color-green-lightest: #ddffef;
+  --color-green-light: #6cffb3;
+  --color-green-base: #00fb7e;
+  --color-green-dark: #008f49;
+  --color-green-darkest: #00371c;
+
+  /* YELLOW */
+  --color-yellow-lightest: #fffbe0;
+  --color-yellow-light: #fff27a;
+  --color-yellow-base: #fbe600;
+  --color-yellow-dark: #9f8f00;
+  --color-yellow-darkest: #3d3700;
+
+  /* PURPLE */
+  --color-purple-lightest: #f3e1ff;
+  --color-purple-light: #cf6cff;
+  --color-purple-base: #ac00fb;
+  --color-purple-dark: #680099;
+  --color-purple-darkest: #29003d;
+
+  /* PINK */
+  --color-pink-lightest: #ffe2f4;
+  --color-pink-light: #ff73c7;
+  --color-pink-base: #fb009f;
+  --color-pink-dark: #99005f;
+  --color-pink-darkest: #3d0025;
+
+  /* ======================================================
+   * SEMANTIC COLOR TOKENS
+   * ====================================================== 
+  */
+
+  --color-bg: var(--color-neutral-darkest);
+  --color-surface: var(--color-neutral-darker);
+
+  --color-text: var(--color-neutral-lightest);
+  --color-text-muted: var(--color-neutral-light);
+  --color-text-subtle: var(--color-neutral-lighter);
+
+  --color-border: var(--color-neutral-dark);
+
+  --button-filled-bg: var(--color-accent-base);
+  --button-filled-text: var(--color-neutral-lightest);
+
+  --button-ghost-bg: var(--color-neutral-darker);
+  --button-ghost-text: var(--color-neutral-lightest);
 }

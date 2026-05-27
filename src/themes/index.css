@@ -1,7 +1,167 @@
+@import './theme.dark.css';
+@import './theme.light.css';
+
 @import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin 'tailwindcss-animate';
 
-/* Base theme */
-@import './theme.base.css';
+@custom-variant light (&:is(.light *));
 
-/* Optional example themes */
-/* @import "./theme.dark.css"; */
+@layer base {
+  h1 {
+    font-size: var(--text-h1);
+    letter-spacing: var(--tracking-sm);
+    line-height: clamp(var(--leading-md), var(--leading-md), var(--leading-xs));
+    font-weight: 600;
+
+    color: var(--color-text);
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    letter-spacing: var(--tracking-sm);
+    line-height: var(--leading-sm);
+    font-weight: 600;
+
+    color: var(--color-text);
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+    letter-spacing: var(--tracking-sm);
+    line-height: var(--leading-md);
+    font-weight: 600;
+
+    color: var(--color-text);
+  }
+
+  h4 {
+    font-size: var(--text-h4);
+    letter-spacing: var(--tracking-sm);
+    line-height: var(--leading-md);
+    font-weight: 600;
+
+    color: var(--color-text);
+  }
+
+  h5 {
+    font-size: var(--text-h5);
+    letter-spacing: var(--tracking-sm);
+    line-height: var(--leading-md);
+    font-weight: 500;
+
+    color: var(--color-text);
+  }
+
+  p {
+    font-size: var(--text-md);
+    letter-spacing: var(--tracking-xs);
+    line-height: var(--leading-md);
+    font-weight: 500;
+
+    color: var(--color-text-muted);
+  }
+
+  /* ======================================================
+   * TEXT SIZES
+   * ====================================================== */
+
+  p[data-size='sm'] {
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-sm);
+    line-height: var(--leading-md);
+    font-weight: 500;
+  }
+
+  p[data-size='xs'],
+  small {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-md);
+    line-height: var(--leading-md);
+    font-weight: 500;
+
+    color: var(--color-text-subtle);
+  }
+
+  /* ======================================================
+   * LISTS
+   * ====================================================== */
+
+  ul,
+  ol {
+    letter-spacing: var(--list-spacing);
+    line-height: var(--leading-md);
+
+    color: var(--color-text-muted);
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 1.25em;
+  }
+
+  ol {
+    list-style-type: decimal;
+    padding-left: 1.25em;
+  }
+
+  li + li {
+    margin-top: 0.5em;
+  }
+
+  /* ======================================================
+   * TEXT FLOW SPACING
+   * ====================================================== */
+
+  h1 + h1 {
+    margin-top: clamp(0.75em, 0.8em, 0.83em);
+  }
+
+  h2 + h2,
+  h3 + h3,
+  h4 + h4,
+  h5 + h5,
+  p + p {
+    margin-top: 1em;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  font-family: var(--font-primary);
+}
+
+/* ==========================================================
+ * THEME TRANSITIONS
+ * ========================================================== */
+
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    fill 200ms ease,
+    stroke 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition * {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================
+ * SCROLL
+ * ========================================================== */
+
+[data-scroll-target] {
+  scroll-margin-top: 96px;
+}

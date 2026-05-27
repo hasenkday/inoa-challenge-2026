@@ -1,8 +1,10 @@
-# Front-end UI Template
+# B3 Stock Viewer
 
-This is a personal front-end template I use to start projects quickly — for studies, experiments, small products, and portfolio pieces.
+This repository contains the **front-end application** I've developed for the INOA technical challenge.
 
-The focus is **speed, clarity, and visual consistency**, without turning the setup into something heavy or over-engineered.
+Built on top of a reusable front-end template refined across multiple projects, the architecture prioritizes scalability, consistency, and developer experience.
+
+This web application focuses on **speed, clarity, and visual consistency**, without becoming heavy or over-engineered.
 
 <br />
 
@@ -17,23 +19,20 @@ The focus is **speed, clarity, and visual consistency**, without turning the set
   <code>CSS Modules</code> ·
   <code>@theme tokens</code> ·
   <code>shadcn/ui</code> ·
-  <code>Plop</code>
+  TODO: add chart lib
 </p>
 
 ```bash
 src/
 ├── app/
-│   ├── router.tsx          # application routing configuration
-│   └── providers.tsx       # optional global providers (theme, query, auth, etc.)
+│   └── router.tsx          # application routing configuration
 │
 ├── pages/
 │   ├── home/
-│   │   ├── home.page.tsx   # page-level UI and logic
-│   │   └── index.ts
-│   ├── ...
+│   │   └── index.ts        # home page
+│   │
 │   └── not-found/
-│       ├── not-found.page.tsx
-│       └── index.ts
+│       └── index.ts        # not found page
 │
 ├── layouts/
 │   └── main-layout.tsx     # shared layout structure (header, footer, outlet)
@@ -54,11 +53,7 @@ src/
 
 ## Usage
 
-```
-# Generate components using predefined templates
-
-npm run plop
-```
+Before running the application, make sure to set the `B3_STOCK_VIEWER_API_BASE_URL` variable inside the `.env` file with the API base URL.
 
 ```
 # Install dependencies and run the project
@@ -66,9 +61,3 @@ npm run plop
 npm install
 npm run dev
 ```
-
----
-<br />
-<p align="center">
-  This repository is shared for reference and personal use.
-</p>
