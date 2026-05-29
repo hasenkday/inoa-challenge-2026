@@ -20,3 +20,11 @@ export type GetStocksParams = {
   startDate: string
   endDate: string
 }
+
+/**
+ * To know which warning type it return.
+ */
+export type GetStocksResult = {
+  data: ChartPoint[]
+  warnings: string[]
+}

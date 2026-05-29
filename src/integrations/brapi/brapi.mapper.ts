@@ -9,7 +9,6 @@ export function mapBrapiToChartData(results: BrapiQuoteResult[]): ChartPoint[] {
     const ticker = stock.symbol
 
     for (const price of stock.historicalDataPrice ?? []) {
-      //   TODO: convert to DD/MM/AAAA using moment.js;/
       const date = new Date(price.date * 1000).toISOString().split('T')[0]
 
       if (!chartMap.has(date)) {

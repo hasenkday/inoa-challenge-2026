@@ -6,7 +6,7 @@ import { env } from '@/config/env'
 import type { BrapiQuoteResponse } from './brapi.types'
 
 /**
- * Handles communication with the external Brapi API.
+ * Handles communication with the external brapi API.
  * This service uses parallel requests to enhance response time.
  */
 @Injectable()

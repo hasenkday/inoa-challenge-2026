@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common'
+import { Controller, Get, NotFoundException, Query } from '@nestjs/common'
 
 import { messages } from '@/common/constants/messages'
 import { successResponse } from '@/common/http/api-response'
@@ -23,13 +23,20 @@ export class StocksController {
       .map((ticker) => ticker.trim().toUpperCase())
       .filter(Boolean)
 
-    // Calls service
-    const data = await this.stocksService.getStocks({
+    const result = await this.stocksService.getStocks({
       tickers,
       startDate: query.startDate,
       endDate: query.endDate,
     })
 
-    return successResponse(data.length ? messages.stocks.retrieved : messages.stocks.empty, data)
+    if (!result.data.length) {
+      throw new NotFoundException(messages.stocks.empty)
+    }
+
+    return successResponse(
+      result.warnings.length ? messages.stocks.partiallyRetrieved : messages.stocks.retrieved,
+      result.data,
+      result.warnings
+    )
   }
 }

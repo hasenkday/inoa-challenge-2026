@@ -4,8 +4,9 @@ export const messages = {
    */
   stocks: {
     retrieved: 'Histórico de preços carregado com sucesso.',
-    empty: 'Nenhum dado encontrado para o período informado.',
-    notFound: (ticker: string) => `Ativo ${ticker} não encontrado.`,
+    partiallyRetrieved: 'Histórico carregado parcialmente. Alguns ativos não retornaram dados.',
+    empty: 'Nenhum dado encontrado para os ativos e período informados.',
+    notFound: (ticker: string) => `Ativo ${ticker} não encontrado ou sem dados no período.`,
   },
 
   /**
