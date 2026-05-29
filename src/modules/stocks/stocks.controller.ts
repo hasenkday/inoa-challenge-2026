@@ -1,19 +1,33 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Query } from '@nestjs/common'
 
-import { CacheSWR } from '@/common/decorators/cache-swr'
-
+import { GetStocksDto } from './dto/get-stocks.dto'
 import { StocksService } from './stocks.service'
-import type { StockTypes } from './stocks.types'
 
-@Controller('api/some-endpoint')
+/**
+ * Handles HTTP requests related to stock price queries.
+ */
+@Controller('api/stocks')
 export class StocksController {
-  constructor(private readonly someThing: StocksService) {}
+  constructor(private readonly stocksService: StocksService) {}
 
-  // TODO: validar query com DTO
+  /**
+   * Get historical stock prices for one or more tickers.
+   */
   @Get()
-  @CacheSWR(600, 86400)
-  async getPriceHistory(): Promise<StockTypes[]> {
-    const result = (await this.someThing.getPriceHistory()) as StockTypes[]
-    return result
+  async getStocks(@Query() query: GetStocksDto) {
+    const tickers = query.tickers
+      .split(',')
+      .map((ticker) => ticker.trim().toUpperCase())
+      .filter(Boolean)
+
+    // calls service
+    const data = await this.stocksService.getStocks({
+      tickers,
+      startDate: query.startDate,
+      endDate: query.endDate,
+    })
+
+    return { message: 'Stocks retrieved successfully.', data }
+    // TODO: create response pattern "successResponse " at "api-response"
   }
 }
