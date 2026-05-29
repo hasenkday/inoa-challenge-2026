@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class SomeModuleService {
-  getSomething(): Promise<any> {
+export class StocksService {
+  getPriceHistory(): Promise<any> {
     return Promise.resolve('something')
   }
 }

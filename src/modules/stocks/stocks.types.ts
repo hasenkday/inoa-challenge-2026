@@ -1,4 +1,4 @@
-export type SomeTypes = {
+export type StockTypes = {
   thing: string
   something: number
 }

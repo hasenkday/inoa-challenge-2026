@@ -3,14 +3,14 @@ import { ConfigModule } from '@nestjs/config'
 import { ThrottlerModule } from '@nestjs/throttler'
 
 import { HealthModule } from './modules/health/health.module'
-import { CasesModule } from './modules/some-module/some-module.module'
+import { StocksModule } from './modules/stocks/stocks.module'
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 60 }]),
     HealthModule,
-    CasesModule,
+    StocksModule,
   ],
 })
 export class AppModule {}
