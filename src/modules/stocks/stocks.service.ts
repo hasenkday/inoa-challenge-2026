@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common'
 
+import { mapBrapiToChartData } from '@/integrations/brapi/brapi.mapper'
+import { BrapiService } from '@/integrations/brapi/brapi.service'
+
 import type { ChartPoint, GetStocksParams } from './stocks.types'
 
 /**
@@ -7,22 +10,19 @@ import type { ChartPoint, GetStocksParams } from './stocks.types'
  */
 @Injectable()
 export class StocksService {
+  constructor(private readonly brapiService: BrapiService) {}
+
   /**
    * Service to get historical stock prices.
    */
   async getStocks(params: GetStocksParams): Promise<ChartPoint[]> {
-    const { tickers, startDate, endDate } = params
+    // TODO: check cache
 
-    console.log({ tickers, startDate, endDate })
+    // if none, get from Brapi api
+    const brapiResponse = await this.brapiService.getHistoricalPrices(params)
 
-    // TODO: check cache, if none, get from Brapi api
+    console.log({ ...brapiResponse })
 
-    return [
-      {
-        date: '2026-01-01',
-        PETR4: 40.5,
-        VALE3: 75.6,
-      },
-    ]
+    return mapBrapiToChartData(brapiResponse.results)
   }
 }
