@@ -1,0 +1,41 @@
+@reference "../../../themes/index.css";
+
+.root {
+  @apply flex flex-col gap-2;
+}
+
+.label {
+  @apply text-foreground text-sm font-medium;
+}
+
+.trigger {
+  @apply border-control-border bg-control-bg text-control-foreground hover:border-control-border-hover hover:bg-control-hover focus-visible:border-control-border-focus focus-visible:ring-control-border-focus flex h-10 w-full items-center gap-3 rounded-md border px-4 text-left text-sm font-medium normal-case shadow-none;
+}
+
+.icon {
+  @apply text-foreground-muted shrink-0;
+}
+
+.value {
+  @apply flex-1 truncate;
+}
+
+.placeholder {
+  @apply text-control-placeholder;
+}
+
+.content {
+  @apply border-border bg-surface flex w-auto overflow-hidden rounded-xl border p-0 shadow-xl;
+}
+
+.presets {
+  @apply border-border bg-control-bg/10 flex w-[150px] shrink-0 flex-col gap-1 border-r p-3;
+}
+
+.preset {
+  @apply text-foreground-muted hover:bg-control-hover hover:text-foreground min-h-10 cursor-pointer rounded-md px-3 text-left text-sm transition-colors;
+}
+
+.calendars {
+  @apply flex gap-3 p-3;
+}

@@ -1,0 +1,89 @@
+@reference "../../../themes/index.css";
+
+/* ===== Ghost checkbox ===== */
+
+.ghost {
+  @apply text-foreground flex items-center gap-2;
+}
+
+/* ===== Group ===== */
+
+.wrapper {
+  @apply flex flex-col gap-2;
+}
+
+.group {
+  @apply flex flex-wrap gap-1;
+}
+
+.groupLabel {
+  @apply text-foreground text-sm font-medium;
+}
+
+/* ===== Fill variant ===== */
+
+.fill {
+  @apply border-control-border/20 bg-control-bg/20 text-control-foreground flex h-11 w-full cursor-pointer items-center gap-3 rounded-md border px-4 text-left text-sm transition-colors;
+  transition:
+    transform 120ms ease-out,
+    opacity 120ms ease-out;
+}
+
+.fill:hover {
+  @apply border-control-border-hover bg-control-hover/40;
+}
+
+.fill:focus-visible {
+  @apply border-control-border-focus ring-control-border-focus ring-2 outline-none;
+}
+
+.fill:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.indicator {
+  @apply border-control-border grid size-5 shrink-0 place-content-center rounded-xs border bg-transparent;
+}
+
+.indicator svg {
+  @apply size-5 stroke-3;
+}
+
+.label {
+  @apply flex-1 text-sm font-medium;
+}
+
+.suffix {
+  @apply text-foreground-muted ml-auto flex shrink-0 items-center;
+}
+
+/* ===== Button variant ===== */
+
+.button {
+  @apply border-control-border bg-control-bg text-control-foreground flex h-10 cursor-pointer items-center justify-center rounded-md border px-4 text-sm transition-colors;
+  transition:
+    transform 120ms ease-out,
+    opacity 120ms ease-out;
+}
+
+.button:hover {
+  @apply border-control-border-hover bg-control-hover;
+}
+
+.button:focus-visible {
+  @apply ring-control-border-focus ring-2 outline-none;
+}
+
+.button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* ===== Checked state ===== */
+
+.checked {
+  @apply border-control-border bg-control-bg text-control-foreground;
+}
+
+.checked .indicator {
+  @apply text-primary border-none bg-transparent;
+}

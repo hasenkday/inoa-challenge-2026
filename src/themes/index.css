@@ -14,7 +14,7 @@
     line-height: clamp(var(--leading-md), var(--leading-md), var(--leading-xs));
     font-weight: 600;
 
-    color: var(--color-text);
+    color: var(--color-foreground);
   }
 
   h2 {
@@ -23,7 +23,7 @@
     line-height: var(--leading-sm);
     font-weight: 600;
 
-    color: var(--color-text);
+    color: var(--color-foreground);
   }
 
   h3 {
@@ -32,7 +32,7 @@
     line-height: var(--leading-md);
     font-weight: 600;
 
-    color: var(--color-text);
+    color: var(--color-foreground);
   }
 
   h4 {
@@ -41,7 +41,7 @@
     line-height: var(--leading-md);
     font-weight: 600;
 
-    color: var(--color-text);
+    color: var(--color-foreground);
   }
 
   h5 {
@@ -50,7 +50,7 @@
     line-height: var(--leading-md);
     font-weight: 500;
 
-    color: var(--color-text);
+    color: var(--color-foreground);
   }
 
   p {
@@ -59,7 +59,7 @@
     line-height: var(--leading-md);
     font-weight: 500;
 
-    color: var(--color-text-muted);
+    color: var(--color-foreground-muted);
   }
 
   /* ======================================================
@@ -80,7 +80,7 @@
     line-height: var(--leading-md);
     font-weight: 500;
 
-    color: var(--color-text-subtle);
+    color: var(--color-foreground-subtle);
   }
 
   /* ======================================================
@@ -92,7 +92,7 @@
     letter-spacing: var(--list-spacing);
     line-height: var(--leading-md);
 
-    color: var(--color-text-muted);
+    color: var(--color-foreground-muted);
   }
 
   ul {
@@ -132,7 +132,7 @@ html {
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-foreground);
 
   font-family: var(--font-primary);
 }

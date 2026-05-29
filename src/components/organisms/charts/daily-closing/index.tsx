@@ -9,20 +9,25 @@ import {
 
 import { chartData } from './mockapi'
 
+const chartColors = {
+  PETR4: 'var(--color-chart-yellow)',
+  VALE3: 'var(--color-chart-green)',
+}
+
 const chartConfig = {
-  VALE3: {
-    label: 'VALE3',
-    color: 'var(--color-green-base)',
-  },
   PETR4: {
     label: 'PETR4',
-    color: 'var(--color-yellow-base)',
+    color: chartColors.PETR4,
+  },
+  VALE3: {
+    label: 'VALE3',
+    color: chartColors.VALE3,
   },
 } satisfies ChartConfig
 
 export function DailyClosingChart() {
   return (
-    <ChartContainer config={chartConfig} className="h-[320px] w-full">
+    <ChartContainer config={chartConfig} className="h-full min-h-[280px] w-full">
       <LineChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
 
@@ -40,6 +45,7 @@ export function DailyClosingChart() {
             })
           }}
         />
+
         <YAxis
           tickLine={false}
           axisLine={false}
@@ -53,16 +59,17 @@ export function DailyClosingChart() {
         />
 
         <Line
-          dataKey="VALE3"
+          dataKey="PETR4"
           type="monotone"
-          stroke="var(--color-yellow-base)"
+          stroke={chartColors.PETR4}
           strokeWidth={2}
           dot={false}
         />
+
         <Line
-          dataKey="PETR4"
+          dataKey="VALE3"
           type="monotone"
-          stroke="var(--color-green-base)"
+          stroke={chartColors.VALE3}
           strokeWidth={2}
           dot={false}
         />
