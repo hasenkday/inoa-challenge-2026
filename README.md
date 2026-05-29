@@ -1,8 +1,12 @@
-# My Portfolio API
+# B3 Stock Viewer API
 
-This repository contains the **backend source** of my **personal portfolio**, built with NestJS and integrated with Notion. It reflects the structure and workflow I use to design and build API-driven products that support my portfolio frontend.
+This repository contains the **back-end application** I've developed for the INOA technical challenge.
 
-Focused on clarity and consistency, prioritizing practical product constraints over heavy abstractions or theoretical scalability. It is lightweight, clear, integrates with **Notion**, and is already configured to **deploy on Vercel**.
+Built on top of a reusable back-end template, made in NestJS, I've been studing and using for a while.
+
+It includes conection to the Brapi API to get historical stock prices and local cache for the data.
+
+Focused on clarity and consistency, prioritizing practical product constraints over heavy abstractions or theoretical scalability.
 
 <br />
 
@@ -12,28 +16,21 @@ Focused on clarity and consistency, prioritizing practical product constraints o
   Stack: &nbsp;
   <code>NestJS</code> · 
   <code>TypeScript</code> · 
-  <code>Notion SDK</code> · 
-  <code>Jest</code>
 </p>
 
 ```bash
 src/
 │
 ├── integrations/
-│   └── notion/ # Notion client wrapper
+│   └── brapi/ # brapi api connection?
 │
 ├── modules/
-│   ├── contact/ # contact feature module
-│   │   ├── contact.controller.ts
-│   │   ├── contact.service.ts
-│   │   ├── contact.props.ts
+│   ├── someModule/ # someModule feature module
+│   │   ├── someModule.controller.ts
+│   │   ├── someModule.service.ts
+│   │   ├── someModule.props.ts
 │   │   └── dto/
-│   │       └── create-contact.dto.ts
-│   │
-│   ├── cases/ # cases feature module
-│   │   ├── cases.controller.ts
-│   │   ├── cases.service.ts
-│   │   └── cases.props.ts
+│   │       └── create-someModule.dto.ts
 │   │
 │   └── health/ # health check module
 │
