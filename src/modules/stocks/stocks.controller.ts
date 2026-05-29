@@ -1,5 +1,8 @@
 import { Controller, Get, Query } from '@nestjs/common'
 
+import { messages } from '@/common/constants/messages'
+import { successResponse } from '@/common/http/api-response'
+
 import { GetStocksDto } from './dto/get-stocks.dto'
 import { StocksService } from './stocks.service'
 
@@ -20,14 +23,13 @@ export class StocksController {
       .map((ticker) => ticker.trim().toUpperCase())
       .filter(Boolean)
 
-    // calls service
+    // Calls service
     const data = await this.stocksService.getStocks({
       tickers,
       startDate: query.startDate,
       endDate: query.endDate,
     })
 
-    return { message: 'Stocks retrieved successfully.', data }
-    // TODO: create response pattern "successResponse " at "api-response"
+    return successResponse(data.length ? messages.stocks.retrieved : messages.stocks.empty, data)
   }
 }

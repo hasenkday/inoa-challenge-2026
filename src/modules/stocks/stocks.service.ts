@@ -13,16 +13,14 @@ export class StocksService {
   constructor(private readonly brapiService: BrapiService) {}
 
   /**
-   * Service to get historical stock prices.
+   * Service to get historical stock prices
+   * and maps them to the expected chart format.
    */
   async getStocks(params: GetStocksParams): Promise<ChartPoint[]> {
     // TODO: check cache
 
     // if none, get from Brapi api
     const brapiResponse = await this.brapiService.getHistoricalPrices(params)
-
-    console.log({ ...brapiResponse })
-
     return mapBrapiToChartData(brapiResponse.results)
   }
 }

@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common'
+import { BadGatewayException, Injectable } from '@nestjs/common'
 
+import { messages } from '@/common/constants/messages'
 import { env } from '@/config/env'
 
 import type { BrapiQuoteResponse } from './brapi.types'
 
 /**
  * Handles communication with the external Brapi API.
+ * This service uses parallel requests to enhance response time.
  */
 @Injectable()
 export class BrapiService {
@@ -14,39 +16,43 @@ export class BrapiService {
     startDate: string
     endDate: string
   }): Promise<BrapiQuoteResponse> {
-    const results: BrapiQuoteResponse['results'] = []
+    try {
+      const responses = await Promise.all(
+        params.tickers.map(async (ticker) => {
+          const url = new URL(`${env.BRAPI_BASE_URL}/quote/${ticker}`)
 
-    // Upgrade to promise.all and use try.catchs
-    for (const ticker of params.tickers) {
-      const url = new URL(`${env.BRAPI_BASE_URL}/quote/${ticker}`)
+          url.searchParams.set('interval', '1d')
+          url.searchParams.set('startDate', params.startDate)
+          url.searchParams.set('endDate', params.endDate)
 
-      url.searchParams.set('interval', '1d')
-      url.searchParams.set('startDate', params.startDate)
-      url.searchParams.set('endDate', params.endDate)
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${env.BRAPI_TOKEN}`,
+            },
+          })
 
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${env.BRAPI_TOKEN}`,
-        },
-      })
+          if (!response.ok) {
+            const errorBody = await response.text()
 
-      if (!response.ok) {
-        const errorBody = await response.text()
+            console.error('BRAPI ERROR:', {
+              ticker,
+              status: response.status,
+              body: errorBody,
+            })
 
-        console.error('BRAPI ERROR:', {
-          ticker,
-          status: response.status,
-          body: errorBody,
+            throw new Error('BRAPI_REQUEST_FAILED')
+          }
+
+          return response.json() as Promise<BrapiQuoteResponse>
         })
+      )
 
-        throw new Error('BRAPI_REQUEST_FAILED')
+      return {
+        results: responses.flatMap((response) => response.results),
       }
-
-      const data = (await response.json()) as BrapiQuoteResponse
-
-      results.push(...data.results)
+    } catch (error) {
+      console.error('Falha ao adquirir dados da API do Brapi.', error)
+      throw new BadGatewayException(messages.brapi.failed)
     }
-
-    return { results }
   }
 }
