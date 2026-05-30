@@ -7,7 +7,7 @@ export function ChartSkeleton() {
 
   return (
     <>
-      <section className={styles.summaryGrid}>
+      {/* <section className={styles.summaryGrid}>
         {Array.from({ length: 4 }).map((_, index) => (
           <Card key={index} className={styles.summaryCard}>
             <CardHeader>
@@ -20,7 +20,7 @@ export function ChartSkeleton() {
             </CardContent>
           </Card>
         ))}
-      </section>
+      </section> */}
 
       <section className={styles.chartSection}>
         <Card className={styles.chartCard}>

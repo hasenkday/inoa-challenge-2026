@@ -11,6 +11,7 @@ import { EmptyState } from '@/components/organisms/filtered-content-states/empty
 import { ErrorState } from '@/components/organisms/filtered-content-states/error-state'
 import { SidePanel } from '@/components/organisms/side-panel'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { exportStocksToCsv } from '@/lib/export-csv'
 
 import styles from './home.module.css'
 
@@ -46,19 +47,24 @@ export default function HomePage() {
     }
   }
 
+  function handleDownloadCsv() {
+    exportStocksToCsv(chartData, selectedTickers)
+  }
+
   return (
     <div className={styles.root}>
       <SidePanel onSubmit={handleSubmit} loading={isLoading} />
 
       <div id="filtered-content" className={styles.filteredContent}>
-        <div className={styles.header}>
+        {/* Header to use when the layout has the 4 metrics cards. */}
+        {/* <div className={styles.header}>
           <h1 className="text-h3 font-normal">Fechamento diário</h1>
 
           <Button variant="ghost" size="sm" className="font-medium" disabled={isEmpty || isLoading}>
             <Download />
             CSV
           </Button>
-        </div>
+        </div> */}
 
         {warnings.length > 0 && (
           <div className="flex flex-col gap-2">
@@ -76,7 +82,8 @@ export default function HomePage() {
           <ChartSkeleton />
         ) : (
           <>
-            {!isEmpty && (
+            {/* Cards for other metrics. Can be implemented in other moment. */}
+            {/* {!isEmpty && (
               <section className={styles.summaryGrid}>
                 {Array.from({ length: 4 }).map((_, index) => (
                   <Card key={index} className={styles.summaryCard}>
@@ -89,16 +96,28 @@ export default function HomePage() {
                   </Card>
                 ))}
               </section>
-            )}
+            )} */}
 
             <section className={styles.chartSection}>
               <Card className={styles.chartCard}>
                 {!isEmpty && (
-                  <CardHeader>
-                    <CardTitle>Fechamento diário</CardTitle>
-                    <CardDescription>
-                      Evolução dos ativos selecionados no período consultado
-                    </CardDescription>
+                  <CardHeader className="flex-row items-center justify-between gap-4 space-y-0">
+                    <div>
+                      <CardTitle className="text-h3 font-medium">Fechamento diário</CardTitle>
+                      <CardDescription className="text-md leading-sm mt-2 font-normal">
+                        Evolução dos ativos selecionados no período consultado
+                      </CardDescription>
+                    </div>
+
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      disabled={isEmpty || isLoading || !!contentError}
+                      onClick={handleDownloadCsv}
+                    >
+                      <Download />
+                      CSV
+                    </Button>
                   </CardHeader>
                 )}
 
