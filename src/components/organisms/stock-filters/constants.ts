@@ -1,8 +1,7 @@
 import { subMonths, subYears } from 'date-fns'
 
 import type { CheckboxOption } from '@/components/atoms/checkbox-field/types'
-
-import type { DateRangePreset } from './types'
+import type { DateRangePreset } from '@/components/molecules/date-range-picker/date-range-picker.types'
 
 export const stockOptions: CheckboxOption[] = [
   {

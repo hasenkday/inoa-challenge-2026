@@ -2,7 +2,7 @@ import { Download } from 'lucide-react'
 
 import { Button } from '@/components/atoms/button'
 import { DailyClosingChart } from '@/components/organisms/charts/daily-closing'
-import { FilterPanel } from '@/components/organisms/filter-panel'
+import { SidePanel } from '@/components/organisms/side-panel'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 import styles from './home.module.css'
@@ -10,7 +10,7 @@ import styles from './home.module.css'
 export default function HomePage() {
   return (
     <div className={styles.root}>
-      <FilterPanel />
+      <SidePanel />
 
       <div id="filtered-content" className={styles.filteredContent}>
         <div className={styles.header}>

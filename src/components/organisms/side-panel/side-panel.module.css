@@ -1,7 +1,7 @@
 @reference "../../../themes/index.css";
 
 .root {
-  @apply flex w-full flex-col gap-8 px-4 py-3 lg:h-full lg:w-[320px];
+  @apply flex w-full flex-col gap-8 px-4 py-3 lg:h-full lg:w-[360px];
 }
 
 .app_title {
@@ -10,8 +10,4 @@
 
 .subtitle {
   @apply text-foreground-muted leading-md mt-3 max-w-[220px] text-sm font-normal;
-}
-
-.callout {
-  @apply border-control-border/20 bg-control-bg/20 flex px-2 pb-2 shadow-none;
 }

@@ -10,18 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils'
 
 import styles from './date-range-picker.module.css'
-
-type DateRangePreset = {
-  label: string
-  getValue: () => DateRange
-}
-
-type DateRangePickerProps = {
-  label?: string
-  placeholder?: string
-  presets?: DateRangePreset[]
-  className?: string
-}
+import type { DateRangePreset, DateRangePickerProps } from './date-range-picker.types'
 
 const defaultPresets: DateRangePreset[] = [
   {
