@@ -77,6 +77,6 @@ html.light {
 
   /* OVERLAYS / TOOLTIP */
   --color-overlay: rgb(9 10 20 / 0.72);
-  --color-tooltip-bg: var(--color-neutral-darkest);
-  --color-tooltip-foreground: var(--color-neutral-lightest);
+  --color-tooltip-bg: var(--color-neutral-white);
+  --color-tooltip-foreground: var(--color-neutral-darkest);
 }

@@ -5,14 +5,14 @@ import type { DateRangePreset } from '@/components/molecules/date-range-picker/d
 
 export const stockOptions: CheckboxOption[] = [
   {
-    value: 'PETR4',
-    label: 'PETR4 (Petrobras)',
-    color: 'chart-yellow',
-  },
-  {
     value: 'VALE3',
     label: 'VALE3 (Vale)',
     color: 'chart-green',
+  },
+  {
+    value: 'PETR4',
+    label: 'PETR4 (Petrobras)',
+    color: 'chart-yellow',
   },
 ]
 
