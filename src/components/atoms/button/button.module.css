@@ -1,7 +1,7 @@
 @reference "../../../themes/index.css";
 
 .root {
-  @apply focus-visible:ring-control-border-focus inline-flex cursor-pointer items-center justify-center gap-2 transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50;
+  @apply focus-visible:ring-control-border-focus inline-flex cursor-pointer items-center justify-center gap-2 transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-30 disabled:grayscale;
   @apply active:translate-y-[2px] active:scale-[0.99];
 }
 

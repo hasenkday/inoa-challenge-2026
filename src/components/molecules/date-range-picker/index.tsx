@@ -34,11 +34,33 @@ export function DateRangePicker({
   placeholder = 'Selecione um período',
   presets = defaultPresets,
   className,
+  value,
+  onValueChange,
 }: DateRangePickerProps) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
+  const [internalDate, setInternalDate] = React.useState<DateRange | undefined>({
     from: new Date(2024, 0, 1),
     to: addDays(new Date(2024, 0, 1), 20),
   })
+
+  const isControlled = value !== undefined || onValueChange !== undefined
+  const date = isControlled ? value : internalDate
+
+  function updateDate(nextDate: DateRange | undefined) {
+    if (isControlled) {
+      onValueChange?.(nextDate)
+      return
+    }
+
+    setInternalDate(nextDate)
+  }
+
+  function handleClear() {
+    const today = new Date()
+
+    updateDate(undefined)
+    setStartMonth(today)
+    setEndMonth(today)
+  }
 
   const [startMonth, setStartMonth] = React.useState(new Date(2024, 0, 1))
   const [endMonth, setEndMonth] = React.useState(addDays(new Date(2024, 0, 1), 20))
@@ -54,7 +76,7 @@ export function DateRangePicker({
   function handlePresetClick(preset: DateRangePreset) {
     const nextDate = preset.getValue()
 
-    setDate(nextDate)
+    updateDate(nextDate)
 
     if (nextDate.from) {
       setStartMonth(nextDate.from)
@@ -66,7 +88,7 @@ export function DateRangePicker({
   }
 
   function handleRangeSelect(nextDate: DateRange | undefined) {
-    setDate(nextDate)
+    updateDate(nextDate)
 
     if (nextDate?.from) {
       setStartMonth(nextDate.from)
@@ -130,7 +152,7 @@ export function DateRangePicker({
               />
             </div>
             <div className={styles.footer}>
-              <Button variant="ghost" size="sm" onClick={() => setDate(undefined)}>
+              <Button type="button" variant="ghost" size="sm" onClick={handleClear}>
                 Limpar
               </Button>
               <Button variant="fill" color="primary" size="sm" onClick={() => setOpen(false)}>

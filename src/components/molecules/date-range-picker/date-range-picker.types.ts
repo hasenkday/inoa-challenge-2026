@@ -10,4 +10,6 @@ export type DateRangePickerProps = {
   placeholder?: string
   presets?: DateRangePreset[]
   className?: string
+  value?: DateRange
+  onValueChange?: (value: DateRange | undefined) => void
 }
