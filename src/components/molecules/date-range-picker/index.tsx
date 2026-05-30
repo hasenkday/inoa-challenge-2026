@@ -42,12 +42,13 @@ export function DateRangePicker({
 
   const [startMonth, setStartMonth] = React.useState(new Date(2024, 0, 1))
   const [endMonth, setEndMonth] = React.useState(addDays(new Date(2024, 0, 1), 20))
+  const [open, setOpen] = React.useState(false)
 
   const dateLabel = React.useMemo(() => {
     if (!date?.from) return placeholder
     if (!date.to) return format(date.from, 'dd/MM/yyyy')
 
-    return `${format(date.from, 'dd/MM/yyyy')} — ${format(date.to, 'dd/MM/yyyy')}`
+    return `${format(date.from, 'dd/MM/yyyy')} → ${format(date.to, 'dd/MM/yyyy')}`
   }, [date, placeholder])
 
   function handlePresetClick(preset: DateRangePreset) {
@@ -80,7 +81,7 @@ export function DateRangePicker({
     <div className={cn(styles.root, className)}>
       {label && <span className={styles.label}>{label}</span>}
 
-      <Popover>
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="ghost" className={styles.trigger}>
             <CalendarIcon size={18} className={styles.icon} />
@@ -102,30 +103,40 @@ export function DateRangePicker({
             ))}
           </aside>
 
-          <div className={styles.calendars}>
-            <Calendar
-              mode="range"
-              captionLayout="dropdown"
-              month={startMonth}
-              onMonthChange={setStartMonth}
-              selected={date}
-              onSelect={handleRangeSelect}
-              numberOfMonths={1}
-              startMonth={new Date(2010, 0)}
-              endMonth={new Date()}
-            />
+          <div className="flex flex-col gap-4">
+            <div className={styles.calendars}>
+              <Calendar
+                mode="range"
+                captionLayout="dropdown"
+                month={startMonth}
+                onMonthChange={setStartMonth}
+                selected={date}
+                onSelect={handleRangeSelect}
+                numberOfMonths={1}
+                startMonth={new Date(2010, 0)}
+                endMonth={new Date()}
+              />
 
-            <Calendar
-              mode="range"
-              captionLayout="dropdown"
-              month={endMonth}
-              onMonthChange={setEndMonth}
-              selected={date}
-              onSelect={handleRangeSelect}
-              numberOfMonths={1}
-              startMonth={new Date(2010, 0)}
-              endMonth={new Date()}
-            />
+              <Calendar
+                mode="range"
+                captionLayout="dropdown"
+                month={endMonth}
+                onMonthChange={setEndMonth}
+                selected={date}
+                onSelect={handleRangeSelect}
+                numberOfMonths={1}
+                startMonth={new Date(2010, 0)}
+                endMonth={new Date()}
+              />
+            </div>
+            <div className={styles.footer}>
+              <Button variant="ghost" size="sm" onClick={() => setDate(undefined)}>
+                Limpar
+              </Button>
+              <Button variant="fill" color="primary" size="sm" onClick={() => setOpen(false)}>
+                Confirmar
+              </Button>
+            </div>
           </div>
         </PopoverContent>
       </Popover>

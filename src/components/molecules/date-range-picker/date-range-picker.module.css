@@ -39,3 +39,7 @@
 .calendars {
   @apply flex gap-3 p-3;
 }
+
+.footer {
+  @apply border-border flex items-center justify-end gap-2 border-t p-4;
+}
