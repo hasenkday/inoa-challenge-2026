@@ -8,6 +8,16 @@ This web application focuses on **speed, clarity, and visual consistency**, with
 
 <br />
 
+## Features
+
+- Historical stock prices visualization
+- Multiple ticker selection
+- Custom date range filtering
+- CSV export
+- Partial result handling
+- Loading, empty and error states
+- Light and dark themes
+
 ## Project structure
 
 <p align="start"> 
@@ -19,7 +29,7 @@ This web application focuses on **speed, clarity, and visual consistency**, with
   <code>CSS Modules</code> ·
   <code>@theme tokens</code> ·
   <code>shadcn/ui</code> ·
-  TODO: add chart lib
+  <code>Lucide Icons</code>
 </p>
 
 ```bash
@@ -28,26 +38,20 @@ src/
 │   └── router.tsx          # application routing configuration
 │
 ├── pages/
-│   ├── home/
-│   │   └── index.ts        # home page
-│   │
-│   └── not-found/
-│       └── index.ts        # not found page
-│
-├── layouts/
-│   └── main-layout.tsx     # shared layout structure (header, footer, outlet)
+│   └── home/               # main stock viewer page
 │
 ├── components/
-│   ├── atoms/              # small, reusable UI pieces (Button, Badge, Text)
-│   ├── molecules/          # composed components (Card, InputField, Modal)
-│   ├── organisms/          # larger UI sections (Header, Footer, ProjectList)
-│   └── ui/                 # raw shadcn/ui components (Dialog, Dropdown, Tooltip)
+│   ├── atoms/              # small, reusable UI pieces (button, callout, form fields)
+│   ├── molecules/          # composed components (card, date range picker)
+│   ├── organisms/          # larger UI sections (charts, content states, side panel)
+│   └── ui/                 # raw shadcn/ui base components
 │
-├── api/                    # API access layer (REST, GraphQL, mocks)
-├── hooks/                  # reusable React hooks (data fetching, logic)
-│
-├── themes/                 # design tokens and theme definitions
+├── api/                    # axios client, API requests and response types
 ├── lib/                    # shared utilities (cn, helpers)
+├── hooks/                  # reusable React hooks
+├── themes/                 # design tokens and theme definitions
+├── assets/                 # static images used by the interface
+│
 └── App.tsx                 # application entry point (router orchestration)
 ```
 
