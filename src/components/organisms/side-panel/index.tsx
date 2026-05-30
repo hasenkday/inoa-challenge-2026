@@ -11,7 +11,7 @@ import { StockFilters } from '../stock-filters'
 
 import styles from './side-panel.module.css'
 
-export function SidePanel(className?: string) {
+export function SidePanel() {
   const [isLight, setIsLight] = useState(false)
   function handleThemeChange(checked: boolean) {
     setIsLight(checked)
@@ -19,7 +19,7 @@ export function SidePanel(className?: string) {
   }
 
   return (
-    <div className={cn(styles.root, className)}>
+    <div className={cn(styles.root)}>
       <div>
         <span className={styles.app_title}>B3 Stock Viewer</span>
         <p className={styles.subtitle}>Visualize o histórico de valores dos ativos da B3</p>

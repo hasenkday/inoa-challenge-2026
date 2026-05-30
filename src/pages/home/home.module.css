@@ -22,10 +22,9 @@
 }
 
 .chartSection {
-  @apply min-h-0 flex-1;
-  max-height: calc(100vh - 260px);
+  @apply flex min-h-0 flex-1;
 }
 
 .chartContent {
-  @apply min-h-0 flex-1 pt-6;
+  @apply flex min-h-0 flex-1 items-center justify-center pt-6;
 }
