@@ -1,57 +1,73 @@
 import { useState } from 'react'
 
 import { format } from 'date-fns'
-import { Info } from 'lucide-react'
 import type { DateRange } from 'react-day-picker'
 
+import type { GetStocksParams } from '@/api/types'
 import { Button } from '@/components/atoms/button'
 import { CheckboxField } from '@/components/atoms/checkbox-field'
 import { DateRangePicker } from '@/components/molecules/date-range-picker'
 
 import { stockOptions, stockPresets } from './constants'
 
-export function StockFilters() {
+type StockFiltersProps = {
+  onSubmit: (filters: GetStocksParams) => Promise<void>
+  loading?: boolean
+}
+
+export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
   const [selectedStocks, setSelectedStocks] = useState<string[]>([])
   const [dateRange, setDateRange] = useState<DateRange | undefined>()
+  const [hasPendingChanges, setHasPendingChanges] = useState(true)
 
-  const canSearch = selectedStocks.length > 0 && dateRange?.from && dateRange?.to
-
-  function handleSearch() {
-    const from = dateRange?.from ? format(dateRange.from, 'dd/MM/yyyy') : 'não selecionado'
-    const to = dateRange?.to ? format(dateRange.to, 'dd/MM/yyyy') : 'não selecionado'
-    const stocks = selectedStocks.length ? selectedStocks.join(', ') : 'nenhum ativo selecionado'
-
-    window.alert(`Período: ${from} até ${to}\nAtivos: ${stocks}`)
+  function handleStocksChange(value: string[]) {
+    setSelectedStocks(value)
+    setHasPendingChanges(true)
   }
+
+  function handleDateRangeChange(value: DateRange | undefined) {
+    setDateRange(value)
+    setHasPendingChanges(true)
+  }
+
+  async function handleSubmit() {
+    if (!canSearch || !dateRange?.from || !dateRange?.to) return
+
+    await onSubmit({
+      tickers: selectedStocks,
+      startDate: format(dateRange.from, 'yyyy-MM-dd'),
+      endDate: format(dateRange.to, 'yyyy-MM-dd'),
+    })
+
+    setHasPendingChanges(false)
+  }
+
+  const canSearch =
+    selectedStocks.length > 0 &&
+    !!dateRange?.from &&
+    !!dateRange?.to &&
+    hasPendingChanges &&
+    !loading
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <DateRangePicker presets={stockPresets} value={dateRange} onValueChange={setDateRange} />
+      <DateRangePicker
+        presets={stockPresets}
+        value={dateRange}
+        onValueChange={handleDateRangeChange}
+      />
 
       <CheckboxField
         label="Ativos"
         variant="fill"
         options={stockOptions}
         value={selectedStocks}
-        onValueChange={setSelectedStocks}
+        onValueChange={handleStocksChange}
       />
 
-      <Button
-        color="primary"
-        variant="fill"
-        size="sm"
-        disabled={!canSearch}
-        title={!canSearch ? 'Selecione um período e pelo menos um ativo' : undefined}
-        onClick={handleSearch}
-      >
-        Buscar
+      <Button color="primary" variant="fill" size="sm" disabled={!canSearch} onClick={handleSubmit}>
+        {loading ? 'Buscando...' : 'Buscar'}
       </Button>
-      {!canSearch && (
-        <span className="text-foreground-subtle flex gap-2 text-sm">
-          <Info size={15} className="mt-[2px] text-inherit" />
-          Selecione um período e pelo menos um ativo e
-        </span>
-      )}
     </div>
   )
 }

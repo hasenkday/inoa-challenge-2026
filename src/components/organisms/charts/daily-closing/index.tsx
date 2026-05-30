@@ -1,5 +1,6 @@
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
 
+import type { StockChartData } from '@/api/types'
 import {
   ChartContainer,
   ChartTooltip,
@@ -7,9 +8,12 @@ import {
   type ChartConfig,
 } from '@/components/ui/chart'
 
-import { chartData } from './mockapi'
+type DailyClosingChartProps = {
+  data: StockChartData[]
+  tickers: string[]
+}
 
-const chartColors = {
+const chartColors: Record<string, string> = {
   PETR4: 'var(--color-chart-yellow)',
   VALE3: 'var(--color-chart-green)',
 }
@@ -25,10 +29,10 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function DailyClosingChart() {
+export function DailyClosingChart({ data, tickers }: DailyClosingChartProps) {
   return (
     <ChartContainer config={chartConfig} className="h-full min-h-[280px] w-full">
-      <LineChart accessibilityLayer data={chartData}>
+      <LineChart accessibilityLayer data={data}>
         <CartesianGrid vertical={false} />
 
         <XAxis
@@ -58,21 +62,16 @@ export function DailyClosingChart() {
           content={<ChartTooltipContent indicator="line" labelKey="date" />}
         />
 
-        <Line
-          dataKey="PETR4"
-          type="monotone"
-          stroke={chartColors.PETR4}
-          strokeWidth={2}
-          dot={false}
-        />
-
-        <Line
-          dataKey="VALE3"
-          type="monotone"
-          stroke={chartColors.VALE3}
-          strokeWidth={2}
-          dot={false}
-        />
+        {tickers.map((ticker) => (
+          <Line
+            key={ticker}
+            dataKey={ticker}
+            type="monotone"
+            stroke={chartColors[ticker] ?? 'var(--color-primary)'}
+            strokeWidth={2}
+            dot={false}
+          />
+        ))}
       </LineChart>
     </ChartContainer>
   )

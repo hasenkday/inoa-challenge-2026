@@ -2,16 +2,26 @@ import { useState } from 'react'
 
 import { Moon, Sun } from 'lucide-react'
 
+import type { GetStocksParams } from '@/api/types'
 import { Callout } from '@/components/atoms/callout'
 import { SwitchField } from '@/components/atoms/switch-field'
+import { StockFilters } from '@/components/organisms/stock-filters'
 import { toggleTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
 
-import { StockFilters } from '../stock-filters'
-
 import styles from './side-panel.module.css'
 
-export function SidePanel() {
+type SidePanelProps = {
+  onSubmit: (filters: GetStocksParams) => Promise<void>
+  loading?: boolean
+  feedback?: {
+    variant: 'default' | 'warning' | 'error' | 'success'
+    title: string
+    description?: string
+  } | null
+}
+
+export function SidePanel({ onSubmit, loading = false, feedback }: SidePanelProps) {
   const [isLight, setIsLight] = useState(false)
   function handleThemeChange(checked: boolean) {
     setIsLight(checked)
@@ -25,14 +35,16 @@ export function SidePanel() {
         <p className={styles.subtitle}>Visualize o histórico de valores dos ativos da B3</p>
       </div>
 
-      <StockFilters />
+      <StockFilters onSubmit={onSubmit} loading={loading} />
 
       <div className="flex flex-col gap-2">
-        <Callout
-          variant="error"
-          title="Consulta parcial"
-          description="Alguns ativos não retornaram dados, mas os ativos válidos foram exibidos."
-        />
+        {feedback && (
+          <Callout
+            variant={feedback.variant}
+            title={feedback.title}
+            description={feedback.description}
+          />
+        )}
         <Callout
           title="Dados armazenados localmente"
           description="O cache dos preços é salvo localmente para reduzir chamadas repetidas à API."
