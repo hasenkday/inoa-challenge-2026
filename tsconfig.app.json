@@ -7,7 +7,6 @@
     "module": "ESNext",
     "types": ["vite/client"],
     "skipLibCheck": true,
-    "ignoreDeprecations": "6.0",
 
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -17,9 +16,8 @@
     "jsx": "react-jsx",
 
     /* Alias */
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
 
     "strict": true,
