@@ -7,6 +7,11 @@ import { BrapiService } from '@/integrations/brapi/brapi.service'
 import { mapCachedRowsToChartData } from '@/modules/stocks/mappers/chart-data.mapper'
 
 import { StocksCacheService } from './cache/stocks-cache.service'
+import {
+  buildStockComparison,
+  findBestPerformance,
+  findWorstPerformance,
+} from './mappers/stock-analysis.mapper'
 import type { GetStocksParams, GetStocksResult } from './stocks.types'
 
 /**
@@ -27,9 +32,20 @@ export class StocksService {
     const warnings = await this.populateMissingCache(params)
 
     const cachedRows = this.stocksCacheService.findPricesByPeriod(params)
-    const data = mapCachedRowsToChartData(cachedRows)
+    const chartData = mapCachedRowsToChartData(cachedRows)
+    const comparison = buildStockComparison(chartData, params.tickers)
 
-    return { data, warnings }
+    return {
+      chartData,
+      comparison,
+      summary: {
+        periodLabel: '',
+        bestPerformance: findBestPerformance(comparison),
+        worstPerformance: findWorstPerformance(comparison),
+        simulation: [],
+      },
+      warnings,
+    }
   }
 
   /**

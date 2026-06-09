@@ -29,13 +29,13 @@ export class StocksController {
       endDate: query.endDate,
     })
 
-    if (!result.data.length) {
+    if (!result.chartData.length) {
       throw new NotFoundException(messages.stocks.empty)
     }
 
     return successResponse(
       result.warnings.length ? messages.stocks.partiallyRetrieved : messages.stocks.retrieved,
-      result.data,
+      result,
       result.warnings
     )
   }
