@@ -35,7 +35,7 @@ src/
 │   │   ├── stocks.types.ts
 │   │   │
 │   │   ├── dto/ # defines and validates parameters to query.
-│   │   ├── mappers/ # manage historical stock prices cache.
+│   │   ├── mappers/ # maps data between integrations, database and API response models.
 │   │   └── cache/ # manage historical stock prices cache.
 │   │
 │   └── health/ # health check module.
