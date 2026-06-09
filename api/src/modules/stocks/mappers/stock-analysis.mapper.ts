@@ -1,4 +1,9 @@
-import type { ChartPoint, StockComparison, StockPerformance } from '../stocks.types'
+import type {
+  ChartPoint,
+  StockComparison,
+  StockPerformance,
+  StockSimulation,
+} from '../stocks.types'
 
 /**
  * Calculates the stock return percentage between
@@ -15,11 +20,9 @@ function getTickerPeriodValues(
   chartData: ChartPoint[],
   ticker: string
 ): { initialValue: number; finalValue: number } | null {
-  console.time('Run_the_chart_data_and_find_fisrt_and_last_values')
   const values = chartData
     .map((point) => point[ticker])
     .filter((value): value is number => typeof value === 'number')
-  console.timeEnd('Run_the_chart_data_and_find_fisrt_and_last_values')
 
   if (values.length < 2) return null
 
@@ -86,4 +89,43 @@ export function findWorstPerformance(comparison: StockComparison[]): StockPerfor
   }
 }
 
-// TODO: simulation, behavior
+/**
+ * Builds an investment simulation for a stock.
+ */
+export function buildStockSimulation(
+  chartData: ChartPoint[],
+  ticker: string,
+  initialAmount = 1000
+): StockSimulation | null {
+  const values = getTickerPeriodValues(chartData, ticker)
+
+  if (!values) {
+    return null
+  }
+
+  const finalAmount = initialAmount * (values.finalValue / values.initialValue)
+
+  return {
+    ticker,
+    initialAmount,
+    finalAmount,
+    profitOrLoss: finalAmount - initialAmount,
+    variationPercent: calculateVariationPercent(values.initialValue, values.finalValue),
+  }
+}
+
+/**
+ * Formats an ISO date to BR display format.
+ */
+function formatDateToBR(date: string): string {
+  const [year, month, day] = date.split('-')
+
+  return `${day}/${month}/${year}`
+}
+
+/**
+ * Formats a readable period label.
+ */
+export function formatPeriodLabel(startDate: string, endDate: string): string {
+  return `${formatDateToBR(startDate)} - ${formatDateToBR(endDate)}`
+}

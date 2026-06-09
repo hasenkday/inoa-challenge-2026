@@ -9,8 +9,10 @@ import { mapCachedRowsToChartData } from '@/modules/stocks/mappers/chart-data.ma
 import { StocksCacheService } from './cache/stocks-cache.service'
 import {
   buildStockComparison,
+  buildStockSimulation,
   findBestPerformance,
   findWorstPerformance,
+  formatPeriodLabel,
 } from './mappers/stock-analysis.mapper'
 import type { GetStocksParams, GetStocksResult } from './stocks.types'
 
@@ -32,17 +34,26 @@ export class StocksService {
     const warnings = await this.populateMissingCache(params)
 
     const cachedRows = this.stocksCacheService.findPricesByPeriod(params)
+
     const chartData = mapCachedRowsToChartData(cachedRows)
     const comparison = buildStockComparison(chartData, params.tickers)
+
+    const periodLabel = formatPeriodLabel(params.startDate, params.endDate)
+    const bestPerformance = findBestPerformance(comparison)
+    const worstPerformance = findWorstPerformance(comparison)
+    const simulation = {
+      best: bestPerformance ? buildStockSimulation(chartData, bestPerformance.ticker) : null,
+      worst: worstPerformance ? buildStockSimulation(chartData, worstPerformance.ticker) : null,
+    }
 
     return {
       chartData,
       comparison,
       summary: {
-        periodLabel: '',
-        bestPerformance: findBestPerformance(comparison),
-        worstPerformance: findWorstPerformance(comparison),
-        simulation: [],
+        periodLabel,
+        bestPerformance,
+        worstPerformance,
+        simulation,
       },
       warnings,
     }

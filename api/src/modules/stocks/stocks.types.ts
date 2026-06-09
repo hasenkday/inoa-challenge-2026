@@ -63,7 +63,10 @@ export type StocksSummary = {
   periodLabel: string
   bestPerformance: StockPerformance | null
   worstPerformance: StockPerformance | null
-  simulation: StockSimulation[]
+  simulation: {
+    best: StockSimulation | null
+    worst: StockSimulation | null
+  }
 }
 
 /**
