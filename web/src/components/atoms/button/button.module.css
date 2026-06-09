@@ -1,0 +1,64 @@
+@reference "../../../themes/index.css";
+
+.root {
+  @apply focus-visible:ring-control-border-focus inline-flex cursor-pointer items-center justify-center gap-2 transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-30 disabled:grayscale;
+  @apply active:translate-y-[2px] active:scale-[0.99];
+}
+
+/* ========== VARIANTS ========== */
+
+.fill {
+  @apply border border-transparent;
+}
+
+.outline {
+  @apply border bg-transparent;
+}
+
+.ghost {
+  @apply border border-transparent bg-transparent;
+}
+
+/* ========== SIZES ========== */
+
+.md {
+  @apply text-md h-12 rounded-full px-6 font-medium uppercase;
+}
+
+.sm {
+  @apply font-primary h-10 rounded-md px-3 text-sm font-medium;
+}
+
+.icon {
+  @apply h-10 w-10 rounded-md p-2;
+}
+
+/* ========== COLORS ========== */
+
+/* Default */
+
+.default.fill {
+  @apply bg-surface text-foreground hover:bg-surface-hover;
+}
+
+.default.outline {
+  @apply border-control-border text-foreground hover:border-control-border-hover hover:bg-control-hover;
+}
+
+.default.ghost {
+  @apply text-foreground hover:bg-control-hover;
+}
+
+/* Primary */
+
+.primary.fill {
+  @apply bg-primary text-neutral-darkest hover:brightness-110;
+}
+
+.primary.outline {
+  @apply border-primary text-primary hover:bg-surface-primary;
+}
+
+.primary.ghost {
+  @apply text-primary hover:bg-surface-primary;
+}

@@ -1,0 +1,111 @@
+@reference "../../../themes/index.css";
+
+/* =========================
+  BASE SWITCH
+========================= */
+
+:global(button[role='switch']) {
+  @apply border-control-border bg-control-bg/10 h-5 w-9 rounded-full border p-px transition-colors;
+}
+
+:global(button[role='switch'] > span) {
+  @apply bg-control-foreground h-4 w-4 translate-x-0 transition-transform;
+}
+
+:global(button[role='switch'][data-state='checked']) {
+  @apply border-control-border-focus bg-control-hover/60;
+}
+
+:global(button[role='switch'][data-state='checked'] > span) {
+  @apply bg-primary translate-x-[16px];
+}
+
+:global(button[role='switch']:hover) {
+  @apply border-control-border-hover bg-control-hover/40;
+}
+
+:global(button[role='switch']:focus-visible) {
+  @apply border-control-border-focus ring-control-border-focus ring-2 outline-none;
+}
+
+:global(button[role='switch']:disabled) {
+  @apply border-control-border bg-control-disabled cursor-not-allowed opacity-70;
+}
+
+/* =========================
+  FIELD WRAPPER
+========================= */
+
+.wrapper {
+  @apply text-foreground flex cursor-pointer items-center justify-between gap-4;
+}
+
+.label {
+  @apply text-foreground text-sm font-medium;
+}
+
+.content {
+  @apply flex items-center gap-3;
+}
+
+.stateIcon {
+  @apply text-foreground-muted flex items-center justify-center;
+}
+
+.stateIcon svg {
+  @apply size-4;
+}
+
+/* =========================
+  GHOST VARIANT
+========================= */
+
+.ghost {
+  @apply h-14 rounded-md px-4 transition-colors;
+}
+
+.ghost:hover {
+  @apply bg-control-hover/30;
+}
+
+/* =========================
+  FILL VARIANT
+========================= */
+
+.fill {
+  @apply border-control-border/20 bg-control-bg/20 h-10 rounded-md border pr-3 pl-4 transition-colors;
+}
+
+.fill:hover {
+  @apply border-control-border-hover bg-control-hover/40;
+}
+
+.active {
+  @apply border-control-border;
+}
+
+/* =========================
+  ICON-ONLY VARIANT
+========================= */
+
+.iconWrapper {
+  @apply border-control-border bg-control-bg/10 relative h-7 w-12 overflow-hidden rounded-full border shadow-sm transition-colors;
+}
+
+.iconWrapper:hover {
+  @apply border-control-border-hover bg-control-hover/40;
+}
+
+.iconWrapper :global(button[role='switch']) {
+  @apply relative h-7 w-12 border-0 bg-transparent shadow-none;
+}
+
+.iconWrapper :global(button[role='switch']:hover),
+.iconWrapper :global(button[role='switch'][data-state='checked']) {
+  @apply bg-transparent;
+}
+
+.iconWrapper :global(button[role='switch'] > span),
+.iconWrapper :global(button[role='switch'][data-state='checked'] > span) {
+  @apply bg-surface shadow-none;
+}

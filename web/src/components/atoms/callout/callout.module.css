@@ -1,0 +1,50 @@
+@reference "../../../themes/index.css";
+
+.root {
+  @apply relative grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 rounded-md border px-3 py-2 shadow-none;
+}
+
+.icon {
+  @apply text-foreground/75 mt-[2px] flex size-4 items-center justify-center;
+}
+
+.title {
+  @apply leading-sm m-0 text-sm font-medium text-inherit;
+}
+
+.description {
+  @apply leading-md text-foreground/75 col-start-2 m-0 text-xs;
+}
+
+/* Variants */
+.default {
+  @apply border-control-border/20 text-foreground/75 bg-control-bg/20;
+}
+
+.default .icon {
+  @apply text-foreground/75;
+}
+
+.warning {
+  @apply border-warning/20 text-foreground-warning bg-surface-warning;
+}
+
+.warning .icon {
+  @apply border-warning/20;
+}
+
+.error {
+  @apply border-error/20 text-foreground-error bg-surface-error;
+}
+
+.error .icon {
+  @apply border-error/20;
+}
+
+.success {
+  @apply border-success/20 text-foreground-success bg-surface-success;
+}
+
+.success .icon {
+  @apply border-success/20;
+}

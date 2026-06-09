@@ -1,0 +1,13 @@
+@reference "../../../themes/index.css";
+
+.root {
+  @apply flex w-full flex-col gap-8 px-4 py-3 lg:h-full lg:w-[360px];
+}
+
+.app_title {
+  @apply text-foreground text-h2 font-semibold tracking-tight;
+}
+
+.subtitle {
+  @apply text-foreground-muted leading-md mt-3 max-w-[220px] text-sm font-normal;
+}

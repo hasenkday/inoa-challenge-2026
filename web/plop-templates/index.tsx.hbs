@@ -1,0 +1,15 @@
+import { cn } from '@/lib/utils'
+
+import styles from './{{kebabCase name}}.module.css'
+
+type {{pascalCase name}}Props = {
+  className?: string
+}
+
+export function {{pascalCase name}}({ className }: {{pascalCase name}}Props) {
+  return (
+    <div className={cn(styles.root, className)}>
+      {{pascalCase name}}
+    </div>
+  )
+}

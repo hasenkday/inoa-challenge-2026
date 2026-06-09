@@ -1,0 +1,82 @@
+/**
+ * ============================================================
+ * THEME LIGHT
+ * Overrides only the semantic colors that changes
+ * ============================================================
+ */
+
+html.light {
+  /* APP FOUNDATION */
+  --color-bg: var(--color-neutral-lightest);
+
+  --color-foreground: var(--color-neutral-darkest);
+  --color-foreground-muted: var(--color-neutral-darker);
+  --color-foreground-subtle: var(--color-neutral-dark);
+  --color-foreground-disabled: var(--color-neutral-light);
+
+  /* SURFACES */
+  --color-surface: var(--color-neutral-white);
+  --color-surface-muted: var(--color-neutral-lightest);
+  --color-surface-hover: var(--color-neutral-lightest);
+  --color-surface-active: var(--color-neutral-lighter);
+  --color-surface-disabled: var(--color-neutral-lighter);
+
+  /* BORDERS */
+  --color-border: color-mix(in srgb, var(--color-neutral-darkest) 10%, transparent);
+  --color-border-hover: color-mix(in srgb, var(--color-neutral-darkest) 18%, transparent);
+  --color-border-focus: var(--color-primary-base);
+  --color-border-disabled: var(--color-neutral-lighter);
+
+  /* PRIMARY */
+  --color-primary: var(--color-primary-base);
+  --color-foreground-primary: var(--color-primary-darkest);
+  --color-surface-primary: var(--color-primary-lightest);
+  --color-surface-primary-hover: var(--color-primary-light);
+
+  /* FORM CONTROLS */
+  --color-control-bg: color-mix(in srgb, var(--color-neutral-white) 80%, transparent);
+  --color-control-foreground: var(--color-foreground);
+  --color-control-placeholder: var(--color-foreground-subtle);
+
+  --color-control-border: color-mix(in srgb, var(--color-neutral-darkest) 12%, transparent);
+  --color-control-border-hover: color-mix(in srgb, var(--color-neutral-darkest) 20%, transparent);
+  --color-control-border-focus: var(--color-border-focus);
+
+  --color-control-hover: color-mix(in srgb, var(--color-neutral-white) 92%, transparent);
+  --color-control-active: var(--color-surface-active);
+  --color-control-disabled: var(--color-surface-disabled);
+
+  --color-control-selected-bg: var(--color-surface-primary);
+  --color-control-selected-foreground: var(--color-foreground-primary);
+
+  /* FEEDBACK */
+  --color-success: var(--color-green-base);
+  --color-foreground-success: var(--color-green-darkest);
+  --color-surface-success: var(--color-green-lightest);
+
+  --color-warning: var(--color-orange-base);
+  --color-foreground-warning: var(--color-orange-darkest);
+  --color-surface-warning: var(--color-orange-lightest);
+
+  --color-error: var(--color-red-base);
+  --color-foreground-error: var(--color-red-darkest);
+  --color-surface-error: var(--color-red-lightest);
+
+  --color-info: var(--color-blue-base);
+  --color-foreground-info: var(--color-blue-darkest);
+  --color-surface-info: var(--color-blue-lightest);
+
+  /* CHARTS */
+  --color-chart-blue: var(--color-blue-dark);
+  --color-chart-orange: var(--color-orange-dark);
+  --color-chart-red: var(--color-red-dark);
+  --color-chart-green: var(--color-green-dark);
+  --color-chart-yellow: var(--color-yellow-dark);
+  --color-chart-purple: var(--color-purple-dark);
+  --color-chart-pink: var(--color-pink-dark);
+
+  /* OVERLAYS / TOOLTIP */
+  --color-overlay: rgb(9 10 20 / 0.72);
+  --color-tooltip-bg: var(--color-neutral-white);
+  --color-tooltip-foreground: var(--color-neutral-darkest);
+}

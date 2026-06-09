@@ -1,0 +1,33 @@
+@reference "../../../themes/index.css";
+
+.root {
+  @apply flex flex-col gap-2;
+}
+
+/* ===== DEFAULT VARIANT (input-like) ===== */
+
+.label {
+  @apply text-foreground text-sm font-medium;
+}
+
+.trigger {
+  @apply h-14 cursor-pointer rounded-md px-4 text-base transition-colors;
+}
+
+.variant-default {
+  @apply border-control-border bg-control-bg/10 text-control-foreground hover:border-control-border-hover hover:bg-control-hover/40 focus:border-control-border-focus focus:ring-control-border-focus;
+}
+
+/* ===== DROPDOWN CONTENT ===== */
+
+.variant-ghost {
+  @apply text-control-foreground hover:bg-control-hover/30 focus:border-control-border-focus focus:ring-control-border-focus border-transparent bg-transparent;
+}
+
+.content {
+  @apply border-bg bg-surface text-foreground border-2;
+}
+
+.item {
+  @apply text-foreground focus:bg-control-hover/60 focus:text-control-foreground text-md min-h-[40px] cursor-pointer px-4 font-normal;
+}
