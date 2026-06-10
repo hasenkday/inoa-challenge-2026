@@ -33,10 +33,12 @@ export class StocksController {
       throw new NotFoundException(messages.stocks.empty)
     }
 
+    const { warnings, ...data } = result
+
     return successResponse(
-      result.warnings.length ? messages.stocks.partiallyRetrieved : messages.stocks.retrieved,
-      result,
-      result.warnings
+      warnings.length ? messages.stocks.partiallyRetrieved : messages.stocks.retrieved,
+      data,
+      warnings
     )
   }
 }
