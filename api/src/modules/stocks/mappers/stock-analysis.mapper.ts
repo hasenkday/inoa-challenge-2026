@@ -1,5 +1,6 @@
 import type {
   ChartPoint,
+  StockBehavior,
   StockComparison,
   StockPerformance,
   StockSimulation,
@@ -50,7 +51,7 @@ export function buildStockComparison(
       ticker,
       currentValue: values.finalValue,
       variationPercent: calculateVariationPercent(values.initialValue, values.finalValue),
-      behavior: 'sideways',
+      behavior: calculateStockBehavior(chartData, ticker),
     })
   }
 
@@ -112,6 +113,52 @@ export function buildStockSimulation(
     profitOrLoss: finalAmount - initialAmount,
     variationPercent: calculateVariationPercent(values.initialValue, values.finalValue),
   }
+}
+
+/**
+ * Calculates the predominant stock behavior
+ * based on daily price movements in the selected period.
+ */
+export function calculateStockBehavior(chartData: ChartPoint[], ticker: string): StockBehavior {
+  const values = getTickerValues(chartData, ticker)
+
+  let upMovements = 0
+  let downMovements = 0
+
+  for (let index = 1; index < values.length; index++) {
+    const previousValue = values[index - 1]
+    const currentValue = values[index]
+
+    if (currentValue > previousValue) {
+      upMovements++
+    }
+
+    if (currentValue < previousValue) {
+      downMovements++
+    }
+  }
+
+  if (upMovements > downMovements) return 'predominantlyUp'
+  if (downMovements > upMovements) return 'predominantlyDown'
+
+  return 'sideways'
+}
+
+/**
+ * Gets all numeric values for a ticker.
+ */
+function getTickerValues(chartData: ChartPoint[], ticker: string): number[] {
+  const values: number[] = []
+
+  for (const point of chartData) {
+    const value = point[ticker]
+
+    if (typeof value === 'number') {
+      values.push(value)
+    }
+  }
+
+  return values
 }
 
 /**
