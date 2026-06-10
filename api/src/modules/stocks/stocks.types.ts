@@ -82,3 +82,10 @@ export type GetStocksResult = {
   summary: StocksSummary
   warnings: string[]
 }
+
+/**
+ * Stock search parameters.
+ */
+export type SearchStocksParams = {
+  query: string
+}

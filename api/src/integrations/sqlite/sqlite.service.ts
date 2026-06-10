@@ -41,6 +41,14 @@ export class SqliteService implements OnModuleInit {
 
         PRIMARY KEY (ticker, month)
       );
+
+      CREATE TABLE IF NOT EXISTS stocks_catalog (
+        ticker TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        sector TEXT,
+        is_available INTEGER NOT NULL DEFAULT 1,
+        updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
     `)
   }
 }

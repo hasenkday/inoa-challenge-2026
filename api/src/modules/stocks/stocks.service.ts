@@ -7,6 +7,7 @@ import { BrapiService } from '@/integrations/brapi/brapi.service'
 import { mapCachedRowsToChartData } from '@/modules/stocks/mappers/chart-data.mapper'
 
 import { StocksCacheService } from './cache/stocks-cache.service'
+import type { StockCatalogRow } from './cache/stocks-cache.types'
 import {
   buildStockComparison,
   buildStockSimulation,
@@ -107,5 +108,26 @@ export class StocksService {
 
     this.stocksCacheService.savePrices(prices)
     this.stocksCacheService.markMonthAsCached(ticker, month)
+  }
+
+  /**
+   * Searches stocks by ticker or name using the local catalog first.
+   */
+  async searchStocks(query: string): Promise<StockCatalogRow[]> {
+    const normalizedQuery = query.trim().toUpperCase()
+
+    const cachedItems = this.stocksCacheService.findCatalogItems(normalizedQuery)
+
+    if (cachedItems.length) {
+      return cachedItems
+    }
+
+    const brapiItems = await this.brapiService.searchStocks(normalizedQuery)
+
+    if (brapiItems.length) {
+      this.stocksCacheService.saveCatalogItems(brapiItems)
+    }
+
+    return brapiItems
   }
 }

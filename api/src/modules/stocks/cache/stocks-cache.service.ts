@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 
 import { SqliteService } from '@/integrations/sqlite/sqlite.service'
 
-import { StockPriceRow } from './stocks-cache.types'
+import { StockCatalogRow, StockPriceRow } from './stocks-cache.types'
 
 /**
  * Handles stock cache persistence.
@@ -42,6 +42,9 @@ export class StocksCacheService {
     statement.run(ticker, month)
   }
 
+  /**
+   * Save stock price row in database.
+   */
   savePrices(prices: StockPriceRow[]): void {
     const statement = this.sqliteService.connection.prepare(`
     INSERT OR IGNORE INTO stock_prices (
@@ -61,6 +64,9 @@ export class StocksCacheService {
     insertMany(prices)
   }
 
+  /**
+   * Brings all the stock prices between the selected period.
+   */
   findPricesByPeriod(params: {
     tickers: string[]
     startDate: string
@@ -77,5 +83,49 @@ export class StocksCacheService {
   `)
 
     return statement.all(...params.tickers, params.startDate, params.endDate) as StockPriceRow[]
+  }
+
+  /**
+   * Saves stock catalog items locally.
+   */
+  saveCatalogItems(items: StockCatalogRow[]): void {
+    const statement = this.sqliteService.connection.prepare(`
+    INSERT OR REPLACE INTO stocks_catalog (
+      ticker,
+      name,
+      sector,
+      is_available,
+      updated_at
+    )
+    VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+  `)
+
+    const insertMany = this.sqliteService.connection.transaction(
+      (catalogItems: StockCatalogRow[]) => {
+        for (const item of catalogItems) {
+          statement.run(item.ticker, item.name, item.sector, item.is_available)
+        }
+      }
+    )
+
+    insertMany(items)
+  }
+
+  /**
+   * Finds locally saved stock catalog items by ticker or name.
+   */
+  findCatalogItems(query: string): StockCatalogRow[] {
+    const statement = this.sqliteService.connection.prepare(`
+    SELECT *
+    FROM stocks_catalog
+    WHERE ticker LIKE ?
+       OR name LIKE ?
+    ORDER BY ticker ASC
+    LIMIT 20
+  `)
+
+    const searchValue = `%${query}%`
+
+    return statement.all(searchValue, searchValue) as StockCatalogRow[]
   }
 }

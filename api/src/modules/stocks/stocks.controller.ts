@@ -4,6 +4,7 @@ import { messages } from '@/common/constants/messages'
 import { successResponse } from '@/common/http/api-response'
 
 import { GetStocksDto } from './dto/get-stocks.dto'
+import { SearchStocksDto } from './dto/search-stocks.dto'
 import { StocksService } from './stocks.service'
 
 /**
@@ -12,6 +13,18 @@ import { StocksService } from './stocks.service'
 @Controller('api/stocks')
 export class StocksController {
   constructor(private readonly stocksService: StocksService) {}
+  /**
+   * Get stocks by searching.
+   */
+  @Get('search')
+  async searchStocks(@Query() query: SearchStocksDto) {
+    const stocks = await this.stocksService.searchStocks(query.query)
+
+    return successResponse(
+      stocks.length ? messages.stocks.catalogRetrieved : messages.stocks.catalogEmpty,
+      stocks
+    )
+  }
 
   /**
    * Get historical stock prices for one or more tickers.
