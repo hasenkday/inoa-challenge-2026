@@ -6,10 +6,13 @@ import { getStocks } from '@/api/stocks'
 import type { GetStocksParams, StockChartData } from '@/api/types'
 import { Button } from '@/components/atoms/button'
 import { SimulationCard } from '@/components/molecules/cards/simulation-card'
+import { SimulationSkeleton } from '@/components/molecules/cards/simulation-card/skeleton'
 import { SummaryCard } from '@/components/molecules/cards/summary-card'
+import { SummarySkeleton } from '@/components/molecules/cards/summary-card/skeleton'
 import { DailyClosingChart } from '@/components/organisms/charts/daily-closing'
+import { DailyClosingChartSkeleton } from '@/components/organisms/charts/daily-closing/skeleton'
 import { ComparisonTable } from '@/components/organisms/comparison-table'
-import { ChartSkeleton } from '@/components/organisms/filtered-content-states/chart-skeleton'
+import { ComparisonTableSkeleton } from '@/components/organisms/comparison-table/skeleton'
 import { EmptyState } from '@/components/organisms/filtered-content-states/empty-state'
 import { ErrorState } from '@/components/organisms/filtered-content-states/error-state'
 import { SidePanel } from '@/components/organisms/side-panel'
@@ -88,9 +91,47 @@ export default function HomePage() {
         {/* TODO: test again... */}
         {error && <p className="text-error text-sm">{error}</p>}
 
-        {/* TODO: fix skeleton layout... */}
+        {/* TODO: refactor to one component */}
         {isLoading ? (
-          <ChartSkeleton />
+          <>
+            <div className={styles.dashboard}>
+              <Card className={styles.chartCard}>
+                {!isEmpty && !contentError && !isLoading && (
+                  <CardHeader className="flex-row items-center justify-between gap-4 space-y-0">
+                    <CardTitle>Histórico de preços</CardTitle>
+                  </CardHeader>
+                )}
+
+                <CardContent className={styles.chartContent}>
+                  {isLoading ? (
+                    <DailyClosingChartSkeleton />
+                  ) : contentError ? (
+                    <ErrorState message={contentError} />
+                  ) : isEmpty ? (
+                    <EmptyState />
+                  ) : (
+                    <DailyClosingChart data={chartData} tickers={selectedTickers} />
+                  )}
+                </CardContent>
+              </Card>
+
+              <div className="flex w-full flex-col gap-3 lg:w-[360px]">
+                {isLoading ? (
+                  <>
+                    <SummarySkeleton />
+                    <SimulationSkeleton />
+                  </>
+                ) : (
+                  <>
+                    <SummaryCard />
+                    <SimulationCard />
+                  </>
+                )}
+              </div>
+            </div>
+
+            {isLoading ? <ComparisonTableSkeleton /> : <ComparisonTable />}
+          </>
         ) : (
           <>
             <div className={styles.dashboard}>
