@@ -69,7 +69,7 @@ export default function HomePage() {
             disabled={isEmpty || isLoading || !!contentError}
             onClick={handleDownloadCsv}
           >
-            <Download />
+            <Download className="size-4" />
             CSV
           </Button>
         </div>
