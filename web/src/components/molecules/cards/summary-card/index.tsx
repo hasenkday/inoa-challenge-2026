@@ -8,7 +8,7 @@ export function SummaryCard() {
     <Card className={styles.cardRoot}>
       <CardHeader className={styles.cardHeader}>
         <CardTitle>Resumo do período</CardTitle>
-        <CardDescription>Últimos 30 dias</CardDescription>
+        <CardDescription className="text-xs">Últimos 30 dias</CardDescription>
       </CardHeader>
 
       <CardContent className={cn(styles.cardContent, 'flex flex-row lg:flex-col')}>

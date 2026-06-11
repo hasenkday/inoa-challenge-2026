@@ -1,3 +1,5 @@
+import { type ColumnDef } from '@tanstack/react-table'
+
 export type AssetBehavior =
   | '↗ Predominância de alta'
   | '↘ Predominância de baixa'
@@ -5,6 +7,8 @@ export type AssetBehavior =
 
 export type ComparisonTableRow = {
   asset: string
+  company?: string
+  sector?: string
   color: 'chart-yellow' | 'chart-green'
   initialPrice: number
   finalPrice: number
@@ -14,4 +18,10 @@ export type ComparisonTableRow = {
 
 export type ComparisonTableProps = {
   data?: ComparisonTableRow[]
+}
+
+export type ComparisonColumnDef = ColumnDef<ComparisonTableRow> & {
+  meta?: {
+    className?: string
+  }
 }

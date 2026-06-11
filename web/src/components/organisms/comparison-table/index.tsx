@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
 
+import styles from './comparison-table.module.css'
 import { comparisonTableMock } from './mock'
 import { TableColumns } from './table-columns'
 import type { ComparisonTableProps } from './types'
@@ -55,8 +56,10 @@ export function ComparisonTable({ data = comparisonTableMock }: ComparisonTableP
         </Button>
       </CardHeader>
 
-      <CardContent className={cn(cardStyles.cardContent)}>
-        <Table>
+      <CardContent
+        className={cn(cardStyles.cardContent, 'max-h-[920px] min-h-[250px] overflow-auto')}
+      >
+        <Table className={styles.table}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

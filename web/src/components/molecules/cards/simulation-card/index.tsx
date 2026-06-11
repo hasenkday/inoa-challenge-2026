@@ -8,7 +8,9 @@ export function SimulationCard() {
     <Card className={styles.cardRoot}>
       <CardHeader className={styles.cardHeader}>
         <CardTitle>Simulação</CardTitle>
-        <CardDescription>...</CardDescription>
+        <CardDescription className="text-xs">
+          Compare quanto cada ativo teria rendido ao investir no início do período.
+        </CardDescription>
       </CardHeader>
 
       <CardContent className={cn(styles.cardContent, 'flex flex-row lg:flex-col')}>

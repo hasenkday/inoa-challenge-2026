@@ -1,5 +1,39 @@
 @reference "../../../themes/index.css";
 
+.table {
+  @apply min-w-[760px] table-fixed;
+}
+
+.assetColumn {
+  @apply w-[180px] md:w-[20%];
+}
+
+.initialColumn {
+  @apply w-[160px] md:w-[20%];
+}
+
+.finalColumn {
+  @apply w-[160px] md:w-[20%];
+}
+
+.variationColumn {
+  @apply w-[130px] md:w-[15%];
+}
+
+.behaviorColumn {
+  @apply w-[230px] md:w-[25%];
+}
+
+/* Asset elements */
+
+.assetCell {
+  @apply flex items-center gap-2;
+}
+
+.assetInfoIcon {
+  @apply text-foreground-muted hover:text-foreground size-3.5 transition-colors;
+}
+
 .marker {
   @apply h-6 w-1.5 rounded-full;
 }
