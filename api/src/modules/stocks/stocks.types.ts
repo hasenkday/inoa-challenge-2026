@@ -4,6 +4,14 @@
 export type StockTicker = string
 
 /**
+ * Selected period info.
+ */
+export type StocksPeriod = {
+  initial: string
+  final: string
+}
+
+/**
  * A single point in the chart dataset.
  */
 export type ChartPoint = {
@@ -31,7 +39,8 @@ export type StockBehavior = 'predominantlyUp' | 'predominantlyDown' | 'sideways'
  */
 export type StockComparison = {
   ticker: string
-  currentValue: number
+  initialValue: number
+  finalValue: number
   variationPercent: number
   behavior: StockBehavior
 }
@@ -60,7 +69,6 @@ export type StockSimulation = {
  * Uses Performance and Simulation data to build.
  */
 export type StocksSummary = {
-  periodLabel: string
   bestPerformance: StockPerformance | null
   worstPerformance: StockPerformance | null
   simulation: {
@@ -77,6 +85,7 @@ export type StocksSummary = {
  * - and the period summary containing the simulation and the performances.
  */
 export type GetStocksResult = {
+  period: StocksPeriod
   chartData: ChartPoint[]
   comparison: StockComparison[]
   summary: StocksSummary

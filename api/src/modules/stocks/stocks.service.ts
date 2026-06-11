@@ -13,7 +13,6 @@ import {
   buildStockSimulation,
   findBestPerformance,
   findWorstPerformance,
-  formatPeriodLabel,
 } from './mappers/stock-analysis.mapper'
 import type { GetStocksParams, GetStocksResult } from './stocks.types'
 
@@ -39,7 +38,6 @@ export class StocksService {
     const chartData = mapCachedRowsToChartData(cachedRows)
     const comparison = buildStockComparison(chartData, params.tickers)
 
-    const periodLabel = formatPeriodLabel(params.startDate, params.endDate)
     const bestPerformance = findBestPerformance(comparison)
     const worstPerformance = findWorstPerformance(comparison)
     const simulation = {
@@ -48,10 +46,13 @@ export class StocksService {
     }
 
     return {
+      period: {
+        initial: params.startDate,
+        final: params.endDate,
+      },
       chartData,
       comparison,
       summary: {
-        periodLabel,
         bestPerformance,
         worstPerformance,
         simulation,

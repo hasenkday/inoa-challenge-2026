@@ -49,7 +49,8 @@ export function buildStockComparison(
 
     comparison.push({
       ticker,
-      currentValue: values.finalValue,
+      initialValue: values.initialValue,
+      finalValue: values.finalValue,
       variationPercent: calculateVariationPercent(values.initialValue, values.finalValue),
       behavior: calculateStockBehavior(chartData, ticker),
     })
@@ -159,20 +160,4 @@ function getTickerValues(chartData: ChartPoint[], ticker: string): number[] {
   }
 
   return values
-}
-
-/**
- * Formats an ISO date to BR display format.
- */
-function formatDateToBR(date: string): string {
-  const [year, month, day] = date.split('-')
-
-  return `${day}/${month}/${year}`
-}
-
-/**
- * Formats a readable period label.
- */
-export function formatPeriodLabel(startDate: string, endDate: string): string {
-  return `${formatDateToBR(startDate)} - ${formatDateToBR(endDate)}`
 }
