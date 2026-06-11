@@ -191,19 +191,19 @@
 
   /* FEEDBACK */
   --color-success: var(--color-green-base);
-  --color-foreground-success: var(--color-green-lightest);
+  --color-foreground-success: var(--color-green-light);
   --color-surface-success: var(--color-green-darkest);
 
   --color-warning: var(--color-orange-base);
-  --color-foreground-warning: var(--color-orange-lightest);
+  --color-foreground-warning: var(--color-orange-light);
   --color-surface-warning: var(--color-orange-darkest);
 
-  --color-error: var(--color-red-base);
-  --color-foreground-error: var(--color-red-lightest);
+  --color-error: var(--color-red);
+  --color-foreground-error: var(--color-red-light);
   --color-surface-error: var(--color-red-darkest);
 
   --color-info: var(--color-blue-base);
-  --color-foreground-info: var(--color-blue-lightest);
+  --color-foreground-info: var(--color-blue-light);
   --color-surface-info: var(--color-blue-darkest);
 
   /* CHARTS */

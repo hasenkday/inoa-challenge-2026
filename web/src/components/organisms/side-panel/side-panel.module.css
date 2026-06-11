@@ -1,7 +1,10 @@
 @reference "../../../themes/index.css";
 
 .root {
-  @apply flex w-full flex-col gap-8 px-4 py-3 lg:h-full lg:w-[360px];
+  @apply flex w-full flex-col gap-8 px-4 py-3 md:max-h-screen md:w-[280px] lg:w-[360px];
+  @apply relative md:fixed md:h-[calc(100vh-32px)] lg:top-3 lg:left-3 lg:h-[calc(100vh-32px)];
+  @apply overflow-auto;
+  /* TODO scroll styles */
 }
 
 .app_title {

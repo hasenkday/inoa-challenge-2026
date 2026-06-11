@@ -5,12 +5,15 @@ import { Download } from 'lucide-react'
 import { getStocks } from '@/api/stocks'
 import type { GetStocksParams, StockChartData } from '@/api/types'
 import { Button } from '@/components/atoms/button'
+import { SimulationCard } from '@/components/molecules/cards/simulation-card'
+import { SummaryCard } from '@/components/molecules/cards/summary-card'
 import { DailyClosingChart } from '@/components/organisms/charts/daily-closing'
+import { ComparisonTable } from '@/components/organisms/comparison-table'
 import { ChartSkeleton } from '@/components/organisms/filtered-content-states/chart-skeleton'
 import { EmptyState } from '@/components/organisms/filtered-content-states/empty-state'
 import { ErrorState } from '@/components/organisms/filtered-content-states/error-state'
 import { SidePanel } from '@/components/organisms/side-panel'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { exportStocksToCsv } from '@/lib/export-csv'
 
 import styles from './home.module.css'
@@ -53,19 +56,25 @@ export default function HomePage() {
 
   return (
     <div className={styles.root}>
-      <SidePanel onSubmit={handleSubmit} loading={isLoading} />
+      <div>
+        <SidePanel onSubmit={handleSubmit} loading={isLoading} />
+      </div>
 
-      <div id="filtered-content" className={styles.filteredContent}>
-        {/* Header to use when the layout has the 4 metrics cards. */}
-        {/* <div className={styles.header}>
-          <h1 className="text-h3 font-normal">Fechamento diário</h1>
-
-          <Button variant="ghost" size="sm" className="font-medium" disabled={isEmpty || isLoading}>
+      <div id="filtered-content" className={styles.contentWrapper}>
+        <div className={styles.contentHeader}>
+          <h1 className="text-h3 font-medium">Fechamento diário</h1>
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={isEmpty || isLoading || !!contentError}
+            onClick={handleDownloadCsv}
+          >
             <Download />
             CSV
           </Button>
-        </div> */}
+        </div>
 
+        {/* TODO: test again... */}
         {warnings.length > 0 && (
           <div className="flex flex-col gap-2">
             {warnings.map((warning) => (
@@ -76,51 +85,21 @@ export default function HomePage() {
           </div>
         )}
 
+        {/* TODO: test again... */}
         {error && <p className="text-error text-sm">{error}</p>}
 
+        {/* TODO: fix skeleton layout... */}
         {isLoading ? (
           <ChartSkeleton />
         ) : (
           <>
-            {/* Cards for other metrics. Can be implemented in other moment. */}
-            {/* {!isEmpty && (
-              <section className={styles.summaryGrid}>
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <Card key={index} className={styles.summaryCard}>
-                    <CardHeader>
-                      <CardTitle>Lorem Ipsum</CardTitle>
-                      <CardDescription>Some description</CardDescription>
-                    </CardHeader>
-
-                    <CardContent>Lorem Ipsum is simply</CardContent>
-                  </Card>
-                ))}
-              </section>
-            )} */}
-
-            <section className={styles.chartSection}>
+            <div className={styles.dashboard}>
               <Card className={styles.chartCard}>
                 {!isEmpty && (
                   <CardHeader className="flex-row items-center justify-between gap-4 space-y-0">
-                    <div>
-                      <CardTitle className="text-h3 font-medium">Fechamento diário</CardTitle>
-                      <CardDescription className="text-md leading-sm mt-2 font-normal">
-                        Evolução dos ativos selecionados no período consultado
-                      </CardDescription>
-                    </div>
-
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      disabled={isEmpty || isLoading || !!contentError}
-                      onClick={handleDownloadCsv}
-                    >
-                      <Download />
-                      CSV
-                    </Button>
+                    <CardTitle>Histórico de preços</CardTitle>
                   </CardHeader>
-                )}
-
+                )}{' '}
                 <CardContent className={styles.chartContent}>
                   {contentError ? (
                     <ErrorState message={contentError} />
@@ -131,7 +110,13 @@ export default function HomePage() {
                   )}
                 </CardContent>
               </Card>
-            </section>
+
+              <div className="flex w-full flex-col gap-3 lg:w-[360px]">
+                <SummaryCard />
+                <SimulationCard />
+              </div>
+            </div>
+            <ComparisonTable />
           </>
         )}
       </div>

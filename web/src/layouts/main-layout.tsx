@@ -7,12 +7,12 @@ export function MainLayout() {
   return (
     <div className="bg-bg relative min-h-screen overflow-hidden">
       <div
-        className="light:opacity-0 absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat opacity-100 blur-2xl transition-opacity duration-300"
+        className="light:opacity-0 fixed inset-0 scale-110 bg-cover bg-center bg-no-repeat opacity-100 blur-2xl transition-opacity duration-300"
         style={{ backgroundImage: `url(${backgroundImg})` }}
       />
 
       <div
-        className="light:opacity-100 absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat opacity-0 blur-2xl transition-opacity duration-300"
+        className="light:opacity-100 fixed inset-0 scale-110 bg-cover bg-center bg-no-repeat opacity-0 blur-2xl transition-opacity duration-300"
         style={{ backgroundImage: `url(${backgroundImgLight})` }}
       />
 

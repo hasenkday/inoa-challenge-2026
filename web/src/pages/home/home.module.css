@@ -1,28 +1,26 @@
 @reference "../../themes/index.css";
 
 .root {
-  @apply text-foreground flex min-h-screen w-full flex-col items-center justify-center gap-4 p-3 lg:flex-row;
+  @apply grid min-h-screen w-full grid-cols-1 items-start justify-center gap-3 p-3;
+  @apply md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[360px_minmax(0,1fr)];
 }
 
-.filteredContent {
-  @apply flex h-[calc(100vh-24px)] min-h-0 w-full flex-col gap-5 overflow-hidden px-4 pt-3 pb-4 lg:pr-4 lg:pl-0;
+.contentWrapper {
+  @apply light:bg-neutral-white bg-foreground/2;
+  @apply flex min-h-full w-full flex-col gap-5 rounded-sm px-6 py-4;
 }
 
-.header {
-  @apply flex flex-row items-center justify-between;
+.contentHeader {
+  @apply flex items-center justify-between gap-5;
 }
 
-.summaryGrid {
-  @apply grid w-full grid-cols-2 gap-5 lg:grid-cols-4;
+.dashboard {
+  @apply flex flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-3;
 }
 
-.summaryCard,
+/* Chart card styles */
 .chartCard {
-  @apply light:bg-neutral-white bg-foreground/2 flex h-full min-h-0 w-full flex-col border-none;
-}
-
-.chartSection {
-  @apply flex min-h-0 flex-1;
+  @apply light:bg-neutral-white bg-foreground/2 flex min-h-[400px] w-full flex-col border-none lg:self-stretch;
 }
 
 .chartContent {

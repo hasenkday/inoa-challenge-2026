@@ -1,0 +1,5 @@
+@reference "../../../themes/index.css";
+
+.root {
+  @apply light:bg-neutral-white bg-foreground/2 flex h-full min-h-0 w-full flex-col border-none;
+}
