@@ -2,6 +2,50 @@ import { subMonths, subYears } from 'date-fns'
 
 import type { CheckboxOption } from '@/components/atoms/checkbox-field/types'
 import type { DateRangePreset } from '@/components/molecules/date-range-picker/date-range-picker.types'
+import type { SearchPopoverOption } from '@/components/molecules/search-popover/types'
+
+export const stockSearchOptions: SearchPopoverOption[] = [
+  {
+    value: 'PETR4',
+    label: 'Petrobras',
+    description: 'Petróleo e Gás',
+    metadata: {
+      color: 'chart-yellow',
+    },
+  },
+  {
+    value: 'VALE3',
+    label: 'Vale',
+    description: 'Mineração',
+    metadata: {
+      color: 'chart-green',
+    },
+  },
+  {
+    value: 'ITUB4',
+    label: 'Banco Itaú',
+    description: 'Instituição Financeira',
+    metadata: {
+      color: 'chart-blue',
+    },
+  },
+  {
+    value: 'AMBEV3',
+    label: 'Ambev',
+    description: 'Bebidas',
+    metadata: {
+      color: 'chart-orange',
+    },
+  },
+  {
+    value: 'BPAC11',
+    label: 'BTG Pactual',
+    description: 'Banco de Investimentos',
+    metadata: {
+      color: 'chart-purple',
+    },
+  },
+]
 
 export const stockOptions: CheckboxOption[] = [
   {

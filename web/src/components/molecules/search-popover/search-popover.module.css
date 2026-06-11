@@ -1,0 +1,53 @@
+@reference "../../../themes/index.css";
+
+.trigger {
+  @apply w-full gap-2 py-5;
+}
+
+.content {
+  @apply border-border bg-surface w-[260px] rounded-xl border p-3 shadow-lg;
+}
+
+.searchWrapper {
+  @apply border-control-border bg-control-bg flex h-10 items-center gap-2 rounded-md border px-3;
+}
+
+.searchIcon {
+  @apply text-foreground-muted size-4 shrink-0;
+}
+
+.input {
+  @apply text-control-foreground placeholder:text-control-placeholder w-full bg-transparent text-sm outline-none;
+}
+
+.results {
+  @apply mt-3 flex max-h-[260px] flex-col gap-1 overflow-y-auto;
+}
+
+.result {
+  @apply hover:bg-control-hover flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left transition-colors;
+}
+
+.optionValue {
+  @apply text-foreground min-w-14 text-sm font-semibold;
+}
+
+.optionContent {
+  @apply flex min-w-0 flex-col;
+}
+
+.optionLabel {
+  @apply text-foreground text-sm;
+}
+
+.optionDescription {
+  @apply text-foreground-muted truncate text-xs;
+}
+
+.disabled {
+  @apply pointer-events-none opacity-40;
+}
+
+.message {
+  @apply text-foreground-muted px-3 py-4 text-sm;
+}

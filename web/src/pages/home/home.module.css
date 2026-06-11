@@ -2,7 +2,7 @@
 
 .root {
   @apply grid min-h-screen w-full grid-cols-1 items-start justify-center gap-3 p-3;
-  @apply md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[360px_minmax(0,1fr)];
+  @apply md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[320px_minmax(0,1fr)];
 }
 
 .contentWrapper {

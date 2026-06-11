@@ -7,8 +7,10 @@ import type { GetStocksParams } from '@/api/types'
 import { Button } from '@/components/atoms/button'
 import { CheckboxField } from '@/components/atoms/checkbox-field'
 import { DateRangePicker } from '@/components/molecules/date-range-picker'
+import { SearchPopover } from '@/components/molecules/search-popover'
+import type { SearchPopoverOption } from '@/components/molecules/search-popover/types'
 
-import { stockOptions, stockPresets } from './constants'
+import { stockOptions, stockPresets, stockSearchOptions } from './constants'
 
 type StockFiltersProps = {
   onSubmit: (filters: GetStocksParams) => Promise<void>
@@ -49,25 +51,51 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
     hasPendingChanges &&
     !loading
 
+  function handleAddStock(option: SearchPopoverOption) {
+    setSelectedStocks((current) => [...current, option.value])
+    setHasPendingChanges(true)
+  }
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="flex max-h-full flex-1 flex-col gap-6 overflow-hidden">
       <DateRangePicker
         presets={stockPresets}
         value={dateRange}
         onValueChange={handleDateRangeChange}
       />
 
-      <CheckboxField
-        label="Ativos"
-        variant="fill"
-        options={stockOptions}
-        value={selectedStocks}
-        onValueChange={handleStocksChange}
-      />
+      <div className="flex max-h-full flex-col gap-3 overflow-hidden">
+        <CheckboxField
+          className="max-h-[250px] overflow-hidden md:max-h-full"
+          label={`Ativos selecionados (${selectedStocks.length})`}
+          variant="fill"
+          options={stockOptions}
+          value={selectedStocks}
+          onValueChange={handleStocksChange}
+        />
 
-      <Button color="primary" variant="fill" size="sm" disabled={!canSearch} onClick={handleSubmit}>
-        {loading ? 'Buscando...' : 'Buscar'}
-      </Button>
+        <SearchPopover
+          className="w-(--radix-popover-trigger-width)!"
+          label="Adicionar ativo"
+          placeholder="Buscar código ou nome..."
+          emptyMessage="Nenhum ativo encontrado."
+          loadingMessage="Buscando ativos..."
+          options={stockSearchOptions}
+          selectedValues={selectedStocks}
+          onSelect={handleAddStock}
+        />
+
+        <Button
+          className="py-5"
+          color="primary"
+          variant="fill"
+          size="sm"
+          disabled={!canSearch}
+          onClick={handleSubmit}
+        >
+          {loading ? 'Comparando...' : 'Comparar ativos'}
+        </Button>
+      </div>
     </div>
   )
 }
