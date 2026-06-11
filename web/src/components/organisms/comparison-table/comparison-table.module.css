@@ -1,5 +1,17 @@
 @reference "../../../themes/index.css";
 
-.root {
-  @apply light:bg-neutral-white bg-foreground/2 flex h-full min-h-0 w-full flex-col border-none;
+.marker {
+  @apply h-6 w-1.5 rounded-full;
+}
+
+.positive {
+  @apply text-chart-green;
+}
+
+.negative {
+  @apply text-chart-red;
+}
+
+.neutral {
+  @apply text-foreground-muted;
 }
