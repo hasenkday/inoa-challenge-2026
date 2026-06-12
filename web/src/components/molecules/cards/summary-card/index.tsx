@@ -1,6 +1,6 @@
 import type { StocksPeriod, StocksSummary } from '@/api/types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, getPeriodDays } from '@/lib/utils'
 
 import styles from '../card.module.css'
 
@@ -25,6 +25,7 @@ export function SummaryCard({ summary, period }: SummaryCardProps) {
 
   const bestPerformance = summary.bestPerformance.variationPercent
   const worstPerformance = summary.worstPerformance.variationPercent
+  const dayCounter = getPeriodDays(period.initial, period.final)
 
   return (
     <Card className={styles.cardRoot}>
@@ -33,6 +34,9 @@ export function SummaryCard({ summary, period }: SummaryCardProps) {
         <CardDescription className="text-xs">
           {new Date(period.initial).toLocaleDateString('pt-BR')} até{' '}
           {new Date(period.final).toLocaleDateString('pt-BR')}
+          <span className="text-foreground-subtle ml-2 text-xs">
+            ({dayCounter}) {dayCounter > 1 ? 'dias' : 'dia'}
+          </span>
         </CardDescription>
       </CardHeader>
 

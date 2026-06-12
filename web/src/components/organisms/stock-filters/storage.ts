@@ -7,6 +7,7 @@ const STOCK_OPTIONS_KEY = 'stock-options'
 const SELECTED_TICKERS_KEY = 'selected-tickers'
 const DATE_RANGE_KEY = 'date-range'
 const STOCKS_RESULT_KEY = 'stocks-result'
+const SIMULATION_AMOUNT_KEY = 'simulation-amount'
 
 export const stocksStorage = {
   // checkbox options -----------------------------------------------------
@@ -71,5 +72,16 @@ export const stocksStorage = {
 
   clearStocksResult() {
     localStorage.removeItem(STOCKS_RESULT_KEY)
+  },
+
+  // Investiment simulator
+  getSimulationAmount() {
+    const stored = localStorage.getItem(SIMULATION_AMOUNT_KEY)
+
+    return stored ? Number(stored) : 1000
+  },
+
+  saveSimulationAmount(amount: number) {
+    localStorage.setItem(SIMULATION_AMOUNT_KEY, String(amount))
   },
 }
