@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Download } from 'lucide-react'
 
 import { getStocks } from '@/api/stocks'
-import type { GetStocksParams, StockChartData } from '@/api/types'
+import type { GetStocksParams, StockChartData, StocksPeriod } from '@/api/types'
 import { Button } from '@/components/atoms/button'
 import { SimulationCard } from '@/components/molecules/cards/simulation-card'
 import { SimulationSkeleton } from '@/components/molecules/cards/simulation-card/skeleton'
@@ -22,12 +22,15 @@ import { exportStocksToCsv } from '@/lib/export-csv'
 import styles from './home.module.css'
 
 export default function HomePage() {
-  const [chartData, setChartData] = useState<StockChartData[]>([])
-  const [selectedTickers, setSelectedTickers] = useState<string[]>([])
-  const [warnings, setWarnings] = useState<string[]>([])
-  const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [warnings, setWarnings] = useState<string[]>([])
   const [contentError, setContentError] = useState<string | null>(null)
+
+  const [period, setPeriod] = useState<StocksPeriod | null>(null)
+  const [selectedTickers, setSelectedTickers] = useState<string[]>([])
+
+  const [chartData, setChartData] = useState<StockChartData[]>([])
 
   const isEmpty = !isLoading && chartData.length === 0
 
@@ -40,14 +43,18 @@ export default function HomePage() {
 
       const response = await getStocks(filters)
 
-      setChartData(response.data)
+      setPeriod(response.data.period)
       setSelectedTickers(filters.tickers)
+
+      setChartData(response.data.chartData)
+
       setWarnings(response.warnings ?? [])
       setContentError(null)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível buscar os dados.'
 
       setContentError(message)
+      setPeriod(null)
     } finally {
       setIsLoading(false)
     }

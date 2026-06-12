@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { format } from 'date-fns'
 import type { DateRange } from 'react-day-picker'
 
+import { searchStocks } from '@/api/stocks'
 import type { GetStocksParams } from '@/api/types'
 import { Button } from '@/components/atoms/button'
 import { CheckboxField } from '@/components/atoms/checkbox-field'
@@ -10,7 +11,9 @@ import { DateRangePicker } from '@/components/molecules/date-range-picker'
 import { SearchPopover } from '@/components/molecules/search-popover'
 import type { SearchPopoverOption } from '@/components/molecules/search-popover/types'
 
-import { stockOptions, stockPresets, stockSearchOptions } from './constants'
+import { stockPresets } from './constants'
+import { addStockToSelection } from './functions'
+import { stocksStorage } from './storage'
 
 type StockFiltersProps = {
   onSubmit: (filters: GetStocksParams) => Promise<void>
@@ -18,17 +21,26 @@ type StockFiltersProps = {
 }
 
 export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
-  const [selectedStocks, setSelectedStocks] = useState<string[]>([])
-  const [dateRange, setDateRange] = useState<DateRange | undefined>()
   const [hasPendingChanges, setHasPendingChanges] = useState(true)
+
+  const [stockOptionsList, setStockOptionsList] = useState(() => stocksStorage.getOptions())
+  const [selectedStocks, setSelectedStocks] = useState(() => stocksStorage.getSelectedTickers())
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(() =>
+    stocksStorage.getDateRange()
+  )
+
+  const [searchResults, setSearchResults] = useState<SearchPopoverOption[]>([])
+  const [isSearching, setIsSearching] = useState(false)
 
   function handleStocksChange(value: string[]) {
     setSelectedStocks(value)
+    stocksStorage.saveSelectedTickers(value)
     setHasPendingChanges(true)
   }
 
   function handleDateRangeChange(value: DateRange | undefined) {
     setDateRange(value)
+    stocksStorage.saveDateRange(value)
     setHasPendingChanges(true)
   }
 
@@ -52,8 +64,40 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
     !loading
 
   function handleAddStock(option: SearchPopoverOption) {
-    setSelectedStocks((current) => [...current, option.value])
+    const { nextOptions, nextSelectedStocks } = addStockToSelection(
+      option,
+      stockOptionsList,
+      selectedStocks
+    )
+
+    setStockOptionsList(nextOptions)
+    setSelectedStocks(nextSelectedStocks)
+
+    stocksStorage.saveOptions(nextOptions)
+    stocksStorage.saveSelectedTickers(nextSelectedStocks)
+
     setHasPendingChanges(true)
+  }
+
+  async function handleSearchChange(query: string) {
+    if (query.trim().length < 2) {
+      setSearchResults([])
+      return
+    }
+
+    try {
+      setIsSearching(true)
+      const response = await searchStocks(query)
+      setSearchResults(
+        response.data.map((stock) => ({
+          value: stock.ticker,
+          label: stock.name,
+          description: stock.sector,
+        }))
+      )
+    } finally {
+      setIsSearching(false)
+    }
   }
 
   return (
@@ -67,9 +111,9 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
       <div className="flex max-h-full flex-col gap-3 overflow-hidden">
         <CheckboxField
           className="max-h-[250px] overflow-hidden md:max-h-full"
-          label={`Ativos selecionados (${selectedStocks.length})`}
+          label={`Ativos adicionados (${stockOptionsList.length})`}
           variant="fill"
-          options={stockOptions}
+          options={stockOptionsList}
           value={selectedStocks}
           onValueChange={handleStocksChange}
         />
@@ -80,8 +124,10 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
           placeholder="Buscar código ou nome..."
           emptyMessage="Nenhum ativo encontrado."
           loadingMessage="Buscando ativos..."
-          options={stockSearchOptions}
+          options={searchResults}
           selectedValues={selectedStocks}
+          loading={isSearching}
+          onSearchChange={handleSearchChange}
           onSelect={handleAddStock}
         />
 

@@ -49,6 +49,8 @@ export function SidePanel({ onSubmit, loading = false, feedback }: SidePanelProp
           title="Dados armazenados localmente"
           description="O cache dos preços é salvo localmente para reduzir chamadas repetidas à API."
         />
+
+        {/* TODO: fix localstorage saving */}
         <SwitchField
           label="Tema"
           variant="fill"
