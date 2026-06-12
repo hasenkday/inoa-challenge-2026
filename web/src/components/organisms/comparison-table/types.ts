@@ -18,6 +18,7 @@ export type ComparisonTableRow = {
 
 export type ComparisonTableProps = {
   data?: ComparisonTableRow[]
+  total?: number
 }
 
 export type ComparisonColumnDef = ColumnDef<ComparisonTableRow> & {

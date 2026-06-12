@@ -26,7 +26,7 @@ import styles from './comparison-table.module.css'
 import { TableColumns } from './table-columns'
 import type { ComparisonTableProps } from './types'
 
-export function ComparisonTable({ data = [] }: ComparisonTableProps) {
+export function ComparisonTable({ data = [], total = data.length }: ComparisonTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
 
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -42,7 +42,10 @@ export function ComparisonTable({ data = [] }: ComparisonTableProps) {
   return (
     <Card className={cn(cardStyles.cardRoot, 'bg-transparent! shadow-none')}>
       <CardHeader className={cn(cardStyles.cardHeader, 'flex-row items-center justify-between')}>
-        <CardTitle>Comparação</CardTitle>
+        <CardTitle>
+          Comparação
+          <span className="text-foreground-subtle ml-2 font-normal">({total} ativos)</span>
+        </CardTitle>
 
         <Button
           variant="ghost"

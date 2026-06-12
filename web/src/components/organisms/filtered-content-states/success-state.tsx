@@ -32,7 +32,10 @@ export function SuccessState({ result, selectedTickers }: SuccessStateProps) {
         </div>
       </div>
 
-      <ComparisonTable data={mapComparisonToTableRows(result.comparison)} />
+      <ComparisonTable
+        data={mapComparisonToTableRows(result.comparison)}
+        total={result.comparison.length}
+      />
     </>
   )
 }
