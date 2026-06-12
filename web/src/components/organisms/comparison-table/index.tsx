@@ -23,11 +23,10 @@ import {
 import { cn } from '@/lib/utils'
 
 import styles from './comparison-table.module.css'
-import { comparisonTableMock } from './mock'
 import { TableColumns } from './table-columns'
 import type { ComparisonTableProps } from './types'
 
-export function ComparisonTable({ data = comparisonTableMock }: ComparisonTableProps) {
+export function ComparisonTable({ data = [] }: ComparisonTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
 
   // eslint-disable-next-line react-hooks/incompatible-library
