@@ -7,9 +7,7 @@ import {
   useReactTable,
   type SortingState,
 } from '@tanstack/react-table'
-import { ArrowUpDown, ChevronDown } from 'lucide-react'
 
-import { Button } from '@/components/atoms/button'
 import cardStyles from '@/components/molecules/cards/card.module.css'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -23,6 +21,7 @@ import {
 import { cn } from '@/lib/utils'
 
 import styles from './comparison-table.module.css'
+import { SortButton } from './sort-button'
 import { TableColumns } from './table-columns'
 import type { ComparisonTableProps } from './types'
 
@@ -47,15 +46,7 @@ export function ComparisonTable({ data = [], total = data.length }: ComparisonTa
           <span className="text-foreground-subtle ml-2 font-normal">({total} ativos)</span>
         </CardTitle>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => table.getColumn('variation')?.toggleSorting()}
-        >
-          <ArrowUpDown className="size-4" />
-          Maior variação no período
-          <ChevronDown className="size-4" />
-        </Button>
+        <SortButton table={table} />
       </CardHeader>
 
       <CardContent
