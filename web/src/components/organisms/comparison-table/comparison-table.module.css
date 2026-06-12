@@ -39,11 +39,11 @@
 }
 
 .positive {
-  @apply text-chart-green;
+  @apply text-foreground-success;
 }
 
 .negative {
-  @apply text-chart-red;
+  @apply text-foreground-error;
 }
 
 .neutral {

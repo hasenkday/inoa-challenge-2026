@@ -16,6 +16,9 @@
   --color-transparent: transparent;
 
   /* ------------------------------ */
+
+  --breakpoint-lg: 75.625rem;
+
   /* ------------------------------ */
 
   /* Font Family */
@@ -86,11 +89,11 @@
   --color-neutral-darkest: #090a14;
 
   /* PRIMARY */
-  --color-primary-lightest: #dff8ff;
-  --color-primary-light: #79c2fa;
-  --color-primary-base: #05ccf6;
-  --color-primary-dark: #054e87;
-  --color-primary-darkest: #02263f;
+  --color-primary-lightest: #c7d6de;
+  --color-primary-light: #88abb6;
+  --color-primary-base: #226573;
+  --color-primary-dark: #143743;
+  --color-primary-darkest: #0d1c27;
 
   /* BLUE */
   --color-blue-lightest: #dff3ff;

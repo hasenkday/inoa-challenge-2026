@@ -53,7 +53,12 @@ export function DailyClosingChart({ data, tickers }: DailyClosingChartProps) {
 
         <ChartTooltip
           cursor={false}
-          content={<ChartTooltipContent indicator="line" labelKey="date" />}
+          content={
+            <ChartTooltipContent
+              indicator="line"
+              labelFormatter={(value) => new Date(String(value)).toLocaleDateString('pt-BR')}
+            />
+          }
         />
 
         {tickers.map((ticker) => (

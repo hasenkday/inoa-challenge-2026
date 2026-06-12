@@ -51,19 +51,19 @@ html.light {
 
   /* FEEDBACK */
   --color-success: var(--color-green-base);
-  --color-foreground-success: var(--color-green-darkest);
+  --color-foreground-success: var(--color-green-dark);
   --color-surface-success: var(--color-green-lightest);
 
   --color-warning: var(--color-orange-base);
-  --color-foreground-warning: var(--color-orange-darkest);
+  --color-foreground-warning: var(--color-orange-dark);
   --color-surface-warning: var(--color-orange-lightest);
 
   --color-error: var(--color-red-base);
-  --color-foreground-error: var(--color-red-darkest);
+  --color-foreground-error: var(--color-red-dark);
   --color-surface-error: var(--color-red-lightest);
 
   --color-info: var(--color-blue-base);
-  --color-foreground-info: var(--color-blue-darkest);
+  --color-foreground-info: var(--color-blue-dark);
   --color-surface-info: var(--color-blue-lightest);
 
   /* CHARTS */
