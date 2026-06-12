@@ -31,7 +31,7 @@ export type SingleProps = {
 
 export type MultiProps = {
   variant?: CheckboxVariant
-  label?: string
+  label?: React.ReactNode
   options: CheckboxOption[]
   value?: string[]
   onValueChange?: (value: string[]) => void

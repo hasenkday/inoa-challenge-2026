@@ -134,7 +134,23 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
       <div className="flex max-h-full flex-col gap-3 overflow-hidden">
         <CheckboxField
           className="max-h-[250px] overflow-hidden md:max-h-full"
-          label={`Ativos adicionados (${stockOptionsList.length})`}
+          label={
+            <div className="flex flex-row items-center justify-between gap-4">
+              <span>
+                Ativos Selecionados{' '}
+                <span className="text-foreground-subtle mr-1 font-normal">
+                  ({selectedStocks.length})
+                </span>
+              </span>
+
+              <div className="bg-foreground-subtle/20 h-4 w-px"></div>
+
+              <span className="text-foreground-subtle/40 font-normal">
+                <span className="mr-1">{stockOptionsList.length}</span>
+                listados
+              </span>
+            </div>
+          }
           variant="fill"
           options={checkboxOptions}
           value={selectedStocks}
