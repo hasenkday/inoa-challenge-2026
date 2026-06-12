@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Check } from 'lucide-react'
+import { Check, X } from 'lucide-react'
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
@@ -117,14 +117,27 @@ function CheckboxGroup({
                 <span className={styles.label}>{option.label}</span>
 
                 <span className={styles.suffix}>
-                  {option.suffix ?? (
-                    <div
-                      className={cn(
-                        'h-2 w-8 rounded-full',
-                        color.bg,
-                        checked ? 'opacity-100' : 'opacity-10'
-                      )}
-                    />
+                  {option.onRemove ? (
+                    <button
+                      type="button"
+                      className="text-foreground-muted hover:text-foreground flex items-center"
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        option.onRemove?.()
+                      }}
+                    >
+                      <X className="size-4" />
+                    </button>
+                  ) : (
+                    (option.suffix ?? (
+                      <div
+                        className={cn(
+                          'h-2 w-8 rounded-full',
+                          color.bg,
+                          checked ? 'opacity-100' : 'opacity-10'
+                        )}
+                      />
+                    ))
                   )}
                 </span>
               </button>

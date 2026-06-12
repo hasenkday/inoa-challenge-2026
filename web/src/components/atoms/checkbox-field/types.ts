@@ -17,6 +17,7 @@ export type CheckboxOption = {
   label: string
   color?: CheckboxColor
   suffix?: React.ReactNode
+  onRemove?: () => void
 }
 
 export type SingleProps = {

@@ -21,7 +21,7 @@ type StockFiltersProps = {
 }
 
 export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
-  const [hasPendingChanges, setHasPendingChanges] = useState(true)
+  const [hasPendingChanges, setHasPendingChanges] = useState(false)
 
   const [stockOptionsList, setStockOptionsList] = useState(() => stocksStorage.getOptions())
   const [selectedStocks, setSelectedStocks] = useState(() => stocksStorage.getSelectedTickers())
@@ -34,13 +34,11 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
 
   function handleStocksChange(value: string[]) {
     setSelectedStocks(value)
-    stocksStorage.saveSelectedTickers(value)
     setHasPendingChanges(true)
   }
 
   function handleDateRangeChange(value: DateRange | undefined) {
     setDateRange(value)
-    stocksStorage.saveDateRange(value)
     setHasPendingChanges(true)
   }
 
@@ -52,6 +50,10 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
       startDate: format(dateRange.from, 'yyyy-MM-dd'),
       endDate: format(dateRange.to, 'yyyy-MM-dd'),
     })
+
+    stocksStorage.saveOptions(stockOptionsList)
+    stocksStorage.saveSelectedTickers(selectedStocks)
+    stocksStorage.saveDateRange(dateRange)
 
     setHasPendingChanges(false)
   }
@@ -74,7 +76,6 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
     setSelectedStocks(nextSelectedStocks)
 
     stocksStorage.saveOptions(nextOptions)
-    stocksStorage.saveSelectedTickers(nextSelectedStocks)
 
     setHasPendingChanges(true)
   }
@@ -100,6 +101,20 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
     }
   }
 
+  function handleRemoveStock(stockValue: string) {
+    const nextOptions = stockOptionsList.filter((stock) => stock.value !== stockValue)
+    const nextSelectedStocks = selectedStocks.filter((stock) => stock !== stockValue)
+
+    setStockOptionsList(nextOptions)
+    setSelectedStocks(nextSelectedStocks)
+    setHasPendingChanges(true)
+  }
+
+  const checkboxOptions = stockOptionsList.map((stock) => ({
+    ...stock,
+    onRemove: () => handleRemoveStock(stock.value),
+  }))
+
   return (
     <div className="flex max-h-full flex-1 flex-col gap-6 overflow-hidden">
       <DateRangePicker
@@ -113,7 +128,7 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
           className="max-h-[250px] overflow-hidden md:max-h-full"
           label={`Ativos adicionados (${stockOptionsList.length})`}
           variant="fill"
-          options={stockOptionsList}
+          options={checkboxOptions}
           value={selectedStocks}
           onValueChange={handleStocksChange}
         />

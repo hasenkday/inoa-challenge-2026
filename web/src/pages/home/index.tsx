@@ -17,6 +17,7 @@ import { ComparisonTableSkeleton } from '@/components/organisms/comparison-table
 import { EmptyState } from '@/components/organisms/filtered-content-states/empty-state'
 import { ErrorState } from '@/components/organisms/filtered-content-states/error-state'
 import { SidePanel } from '@/components/organisms/side-panel'
+import { stocksStorage } from '@/components/organisms/stock-filters/storage'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { exportStocksToCsv } from '@/lib/export-csv'
 
@@ -27,8 +28,12 @@ export default function HomePage() {
   const [warnings, setWarnings] = useState<string[]>([])
   const [contentError, setContentError] = useState<string | null>(null)
 
-  const [stocksResult, setStocksResult] = useState<StocksResult | null>(null)
-  const [selectedTickers, setSelectedTickers] = useState<string[]>([])
+  const [stocksResult, setStocksResult] = useState<StocksResult | null>(() =>
+    stocksStorage.getStocksResult()
+  )
+  const [selectedTickers, setSelectedTickers] = useState<string[]>(() =>
+    stocksStorage.getSelectedTickers()
+  )
 
   const isEmpty = !isLoading && !stocksResult
   const hasResult = !!stocksResult
@@ -50,12 +55,14 @@ export default function HomePage() {
       const response = await getStocks(filters)
 
       setStocksResult(response.data)
+      stocksStorage.saveStocksResult(response.data)
       setSelectedTickers(filters.tickers)
       setWarnings(response.warnings ?? [])
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível buscar os dados.'
 
       setStocksResult(null)
+      stocksStorage.clearStocksResult()
       setWarnings([])
       setContentError(message)
     } finally {
