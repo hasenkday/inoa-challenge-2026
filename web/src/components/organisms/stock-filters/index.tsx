@@ -12,7 +12,7 @@ import { SearchPopover } from '@/components/molecules/search-popover'
 import type { SearchPopoverOption } from '@/components/molecules/search-popover/types'
 
 import { stockPresets } from './constants'
-import { addStockToSelection } from './functions'
+import { addStockToSelection, normalizeStockColors } from './functions'
 import { stocksStorage } from './storage'
 
 type StockFiltersProps = {
@@ -23,7 +23,9 @@ type StockFiltersProps = {
 export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
   const [hasPendingChanges, setHasPendingChanges] = useState(false)
 
-  const [stockOptionsList, setStockOptionsList] = useState(() => stocksStorage.getOptions())
+  const [stockOptionsList, setStockOptionsList] = useState(() =>
+    normalizeStockColors(stocksStorage.getOptions())
+  )
   const [selectedStocks, setSelectedStocks] = useState(() => stocksStorage.getSelectedTickers())
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() =>
     stocksStorage.getDateRange()
@@ -51,7 +53,9 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
       endDate: format(dateRange.to, 'yyyy-MM-dd'),
     })
 
-    stocksStorage.saveOptions(stockOptionsList)
+    const normalizedOptions = normalizeStockColors(stockOptionsList)
+
+    stocksStorage.saveOptions(normalizedOptions)
     stocksStorage.saveSelectedTickers(selectedStocks)
     stocksStorage.saveDateRange(dateRange)
 
@@ -72,12 +76,12 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
       selectedStocks
     )
 
-    setStockOptionsList(nextOptions)
+    const normalizedOptions = normalizeStockColors(nextOptions)
+
+    setStockOptionsList(normalizedOptions)
     setSelectedStocks(nextSelectedStocks)
 
-    stocksStorage.saveOptions(nextOptions)
-
-    setHasPendingChanges(true)
+    stocksStorage.saveOptions(normalizedOptions)
   }
 
   async function handleSearchChange(query: string) {
@@ -106,13 +110,13 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
 
     const nextOptions = stockOptionsList.filter((stock) => stock.value !== stockValue)
     const nextSelectedStocks = selectedStocks.filter((stock) => stock !== stockValue)
+    const normalizedOptions = normalizeStockColors(nextOptions)
 
-    setStockOptionsList(nextOptions)
+    setStockOptionsList(normalizedOptions)
     setSelectedStocks(nextSelectedStocks)
-    setHasPendingChanges(true)
 
     if (!isSelected) {
-      stocksStorage.saveOptions(nextOptions)
+      stocksStorage.saveOptions(normalizedOptions)
     }
   }
 

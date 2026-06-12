@@ -30,3 +30,10 @@ export function addStockToSelection(
     nextSelectedStocks,
   }
 }
+
+export function normalizeStockColors(stockOptions: CheckboxOption[]) {
+  return stockOptions.map((stock, index) => ({
+    ...stock,
+    color: getStockColor(index),
+  }))
+}
