@@ -1,6 +1,6 @@
 import type { StocksSummary } from '@/api/types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, formatCurrency } from '@/lib/utils'
 
 import styles from '../card.module.css'
 
@@ -9,13 +9,6 @@ type SimulationCardProps = {
 }
 
 export function SimulationCard({ simulation }: SimulationCardProps) {
-  function formatCurrency(value: number) {
-    return value.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    })
-  }
-
   return (
     <Card className={styles.cardRoot}>
       <CardHeader className={styles.cardHeader}>
