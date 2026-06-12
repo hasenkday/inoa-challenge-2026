@@ -7,9 +7,13 @@ import styles from './comparison-table.module.css'
 import { HeaderWithTooltip } from './table-header'
 import type { ComparisonColumnDef } from './types'
 
-const colorClass = {
+const colorClass: Record<string, string> = {
   'chart-yellow': 'bg-chart-yellow',
   'chart-green': 'bg-chart-green',
+  'chart-blue': 'bg-chart-blue',
+  'chart-orange': 'bg-chart-orange',
+  'chart-purple': 'bg-chart-purple',
+  'chart-pink': 'bg-chart-pink',
 }
 
 export const TableColumns: ComparisonColumnDef[] = [
@@ -21,7 +25,7 @@ export const TableColumns: ComparisonColumnDef[] = [
     },
     cell: ({ row }) => (
       <div className={styles.assetCell}>
-        <span className={cn(styles.marker, colorClass[row.original.color])} />
+        <span className={cn(styles.marker, colorClass[row.original.color] ?? 'bg-primary')} />
 
         <span>{row.original.asset}</span>
 

@@ -1,9 +1,21 @@
+import type { StocksSummary } from '@/api/types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
 import styles from '../card.module.css'
 
-export function SimulationCard() {
+type SimulationCardProps = {
+  simulation: StocksSummary['simulation']
+}
+
+export function SimulationCard({ simulation }: SimulationCardProps) {
+  function formatCurrency(value: number) {
+    return value.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    })
+  }
+
   return (
     <Card className={styles.cardRoot}>
       <CardHeader className={styles.cardHeader}>
@@ -15,13 +27,17 @@ export function SimulationCard() {
 
       <CardContent className={cn(styles.cardContent, 'flex flex-row lg:flex-col')}>
         <div className="flex flex-1 flex-col gap-1">
-          <p className="text-sm font-normal">R$ 1.000 em VALE3</p>
-          <span className="text-foreground-success text-sm font-bold">R$ 1.128</span>
+          <p className="text-sm font-normal">R$ 1.000 em {simulation.best.ticker}</p>
+          <span className="text-foreground-success text-sm font-bold">
+            {formatCurrency(simulation.best.finalAmount)}
+          </span>
         </div>
 
         <div className="flex flex-1 flex-col gap-1">
-          <p className="text-sm font-normal">R$ 1.000 em PETR4</p>
-          <span className="text-foreground-error text-sm font-bold">R$ 916</span>
+          <p className="text-sm font-normal">R$ 1.000 em {simulation.worst.ticker}</p>
+          <span className="text-foreground-error text-sm font-bold">
+            {formatCurrency(simulation.worst.finalAmount)}
+          </span>
         </div>
       </CardContent>
     </Card>

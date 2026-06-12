@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Download } from 'lucide-react'
 
 import { getStocks } from '@/api/stocks'
-import type { GetStocksParams, StockChartData, StocksPeriod } from '@/api/types'
+import type { GetStocksParams, StocksResult } from '@/api/types'
 import { Button } from '@/components/atoms/button'
 import { SimulationCard } from '@/components/molecules/cards/simulation-card'
 import { SimulationSkeleton } from '@/components/molecules/cards/simulation-card/skeleton'
@@ -12,6 +12,7 @@ import { SummarySkeleton } from '@/components/molecules/cards/summary-card/skele
 import { DailyClosingChart } from '@/components/organisms/charts/daily-closing'
 import { DailyClosingChartSkeleton } from '@/components/organisms/charts/daily-closing/skeleton'
 import { ComparisonTable } from '@/components/organisms/comparison-table'
+import { mapComparisonToTableRows } from '@/components/organisms/comparison-table/functions'
 import { ComparisonTableSkeleton } from '@/components/organisms/comparison-table/skeleton'
 import { EmptyState } from '@/components/organisms/filtered-content-states/empty-state'
 import { ErrorState } from '@/components/organisms/filtered-content-states/error-state'
@@ -23,51 +24,55 @@ import styles from './home.module.css'
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const [warnings, setWarnings] = useState<string[]>([])
   const [contentError, setContentError] = useState<string | null>(null)
 
-  const [period, setPeriod] = useState<StocksPeriod | null>(null)
+  const [stocksResult, setStocksResult] = useState<StocksResult | null>(null)
   const [selectedTickers, setSelectedTickers] = useState<string[]>([])
 
-  const [chartData, setChartData] = useState<StockChartData[]>([])
+  const isEmpty = !isLoading && !stocksResult
+  const hasResult = !!stocksResult
+  const canShowResult = hasResult && !isLoading && !contentError
 
-  const isEmpty = !isLoading && chartData.length === 0
+  const feedbackContent = {
+    variant: 'warning' as const,
+    title: 'Consulta parcial',
+    description: warnings.join(' '),
+  }
+  const feedback = warnings.length > 0 ? feedbackContent : null
 
   async function handleSubmit(filters: GetStocksParams) {
     try {
       setIsLoading(true)
-      setError(null)
       setWarnings([])
       setContentError(null)
 
       const response = await getStocks(filters)
 
-      setPeriod(response.data.period)
+      setStocksResult(response.data)
       setSelectedTickers(filters.tickers)
-
-      setChartData(response.data.chartData)
-
       setWarnings(response.warnings ?? [])
-      setContentError(null)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível buscar os dados.'
 
+      setStocksResult(null)
+      setWarnings([])
       setContentError(message)
-      setPeriod(null)
     } finally {
       setIsLoading(false)
     }
   }
 
   function handleDownloadCsv() {
-    exportStocksToCsv(chartData, selectedTickers)
+    if (!stocksResult) return
+
+    exportStocksToCsv(stocksResult.chartData, selectedTickers)
   }
 
   return (
     <div className={styles.root}>
       <div>
-        <SidePanel onSubmit={handleSubmit} loading={isLoading} />
+        <SidePanel onSubmit={handleSubmit} loading={isLoading} feedback={feedback} />
       </div>
 
       <div id="filtered-content" className={styles.contentWrapper}>
@@ -84,87 +89,56 @@ export default function HomePage() {
           </Button>
         </div>
 
-        {/* TODO: test again... */}
-        {warnings.length > 0 && (
-          <div className="flex flex-col gap-2">
-            {warnings.map((warning) => (
-              <p key={warning} className="text-warning text-sm">
-                {warning}
-              </p>
-            ))}
-          </div>
-        )}
-
-        {/* TODO: test again... */}
-        {error && <p className="text-error text-sm">{error}</p>}
-
-        {/* TODO: refactor to one component */}
         {isLoading ? (
           <>
             <div className={styles.dashboard}>
               <Card className={styles.chartCard}>
-                {!isEmpty && !contentError && !isLoading && (
-                  <CardHeader className="flex-row items-center justify-between gap-4 space-y-0">
-                    <CardTitle>Histórico de preços</CardTitle>
-                  </CardHeader>
-                )}
-
                 <CardContent className={styles.chartContent}>
-                  {isLoading ? (
-                    <DailyClosingChartSkeleton />
-                  ) : contentError ? (
-                    <ErrorState message={contentError} />
-                  ) : isEmpty ? (
-                    <EmptyState />
-                  ) : (
-                    <DailyClosingChart data={chartData} tickers={selectedTickers} />
-                  )}
+                  <DailyClosingChartSkeleton />
                 </CardContent>
               </Card>
 
               <div className="flex w-full flex-col gap-3 lg:w-[360px]">
-                {isLoading ? (
-                  <>
-                    <SummarySkeleton />
-                    <SimulationSkeleton />
-                  </>
-                ) : (
-                  <>
-                    <SummaryCard />
-                    <SimulationCard />
-                  </>
-                )}
+                <SummarySkeleton />
+                <SimulationSkeleton />
               </div>
             </div>
 
-            {isLoading ? <ComparisonTableSkeleton /> : <ComparisonTable />}
+            <ComparisonTableSkeleton />
           </>
         ) : (
           <>
             <div className={styles.dashboard}>
               <Card className={styles.chartCard}>
-                {!isEmpty && (
+                {canShowResult && (
                   <CardHeader className="flex-row items-center justify-between gap-4 space-y-0">
                     <CardTitle>Histórico de preços</CardTitle>
                   </CardHeader>
-                )}{' '}
+                )}
+
                 <CardContent className={styles.chartContent}>
                   {contentError ? (
                     <ErrorState message={contentError} />
                   ) : isEmpty ? (
                     <EmptyState />
-                  ) : (
-                    <DailyClosingChart data={chartData} tickers={selectedTickers} />
-                  )}
+                  ) : stocksResult ? (
+                    <DailyClosingChart data={stocksResult.chartData} tickers={selectedTickers} />
+                  ) : null}
                 </CardContent>
               </Card>
 
-              <div className="flex w-full flex-col gap-3 lg:w-[360px]">
-                <SummaryCard />
-                <SimulationCard />
-              </div>
+              {stocksResult && (
+                <div className="flex w-full flex-col gap-3 lg:w-[360px]">
+                  <SummaryCard summary={stocksResult.summary} period={stocksResult.period} />
+
+                  <SimulationCard simulation={stocksResult.summary.simulation} />
+                </div>
+              )}
             </div>
-            <ComparisonTable />
+
+            {stocksResult && (
+              <ComparisonTable data={mapComparisonToTableRows(stocksResult.comparison)} />
+            )}
           </>
         )}
       </div>

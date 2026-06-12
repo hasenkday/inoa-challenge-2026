@@ -9,7 +9,7 @@ export type ComparisonTableRow = {
   asset: string
   company?: string
   sector?: string
-  color: 'chart-yellow' | 'chart-green'
+  color: string
   initialPrice: number
   finalPrice: number
   variation: number
