@@ -15,7 +15,7 @@ type DailyClosingChartProps = {
 }
 
 export function DailyClosingChart({ data, tickers }: DailyClosingChartProps) {
-  const chartConfig = tickers.reduce((config, ticker, index) => {
+  const chartConfig = tickers.reduce((config, ticker) => {
     config[ticker] = {
       label: ticker,
       color: getStockColorVarByTicker(ticker, tickers),
