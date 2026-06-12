@@ -102,12 +102,18 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
   }
 
   function handleRemoveStock(stockValue: string) {
+    const isSelected = selectedStocks.includes(stockValue)
+
     const nextOptions = stockOptionsList.filter((stock) => stock.value !== stockValue)
     const nextSelectedStocks = selectedStocks.filter((stock) => stock !== stockValue)
 
     setStockOptionsList(nextOptions)
     setSelectedStocks(nextSelectedStocks)
     setHasPendingChanges(true)
+
+    if (!isSelected) {
+      stocksStorage.saveOptions(nextOptions)
+    }
   }
 
   const checkboxOptions = stockOptionsList.map((stock) => ({
