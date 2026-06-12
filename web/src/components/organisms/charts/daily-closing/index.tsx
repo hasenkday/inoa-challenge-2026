@@ -7,29 +7,23 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart'
+import { getStockColorVarByTicker } from '@/lib/stock-colors'
 
 type DailyClosingChartProps = {
   data: StockChartData[]
   tickers: string[]
 }
 
-const chartColors: Record<string, string> = {
-  PETR4: 'var(--color-chart-yellow)',
-  VALE3: 'var(--color-chart-green)',
-}
-
-const chartConfig = {
-  PETR4: {
-    label: 'PETR4',
-    color: chartColors.PETR4,
-  },
-  VALE3: {
-    label: 'VALE3',
-    color: chartColors.VALE3,
-  },
-} satisfies ChartConfig
-
 export function DailyClosingChart({ data, tickers }: DailyClosingChartProps) {
+  const chartConfig = tickers.reduce((config, ticker, index) => {
+    config[ticker] = {
+      label: ticker,
+      color: getStockColorVarByTicker(ticker, tickers),
+    }
+
+    return config
+  }, {} as ChartConfig)
+
   return (
     <ChartContainer config={chartConfig} className="h-full min-h-[280px] w-full">
       <LineChart accessibilityLayer data={data}>
@@ -67,7 +61,7 @@ export function DailyClosingChart({ data, tickers }: DailyClosingChartProps) {
             key={ticker}
             dataKey={ticker}
             type="monotone"
-            stroke={chartColors[ticker] ?? 'var(--color-primary)'}
+            stroke={getStockColorVarByTicker(ticker, tickers)}
             strokeWidth={2}
             dot={false}
           />

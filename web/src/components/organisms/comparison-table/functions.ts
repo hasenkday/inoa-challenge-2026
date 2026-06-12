@@ -1,4 +1,5 @@
 import type { StockComparisonItem } from '@/api/types'
+import { getStockColor } from '@/lib/stock-colors'
 
 import type { AssetBehavior, ComparisonTableRow } from './types'
 
@@ -15,23 +16,10 @@ function getBehaviorLabel(behavior: StockComparisonItem['behavior']): AssetBehav
 export function mapComparisonToTableRows(comparison: StockComparisonItem[]): ComparisonTableRow[] {
   return comparison.map((item, index) => ({
     asset: item.ticker,
-    color: getChartColor(index),
+    color: getStockColor(index),
     initialPrice: item.initialValue,
     finalPrice: item.finalValue,
     variation: item.variationPercent,
     behavior: getBehaviorLabel(item.behavior),
   }))
-}
-
-function getChartColor(index: number) {
-  const colors = [
-    'chart-yellow',
-    'chart-green',
-    'chart-blue',
-    'chart-orange',
-    'chart-purple',
-    'chart-pink',
-  ]
-
-  return colors[index % colors.length]
 }
