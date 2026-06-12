@@ -116,10 +116,12 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
     }
   }
 
-  const checkboxOptions = stockOptionsList.map((stock) => ({
-    ...stock,
-    onRemove: () => handleRemoveStock(stock.value),
-  }))
+  const checkboxOptions = [...stockOptionsList]
+    .sort((a, b) => a.value.localeCompare(b.value))
+    .map((stock) => ({
+      ...stock,
+      onRemove: () => handleRemoveStock(stock.value),
+    }))
 
   return (
     <div className="flex max-h-full flex-1 flex-col gap-6 overflow-hidden">

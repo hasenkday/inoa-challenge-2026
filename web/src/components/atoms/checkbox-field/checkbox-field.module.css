@@ -13,7 +13,7 @@
 }
 
 .group {
-  @apply flex flex-wrap gap-1 overflow-auto;
+  @apply flex flex-wrap gap-1 overflow-auto pr-1 pb-4;
 }
 
 .groupLabel {
@@ -23,7 +23,7 @@
 /* ===== Fill variant ===== */
 
 .fill {
-  @apply border-control-border/20 bg-control-bg/20 text-control-foreground flex h-11 w-full cursor-pointer items-center gap-3 rounded-md border px-4 text-left text-sm transition-colors;
+  @apply border-control-border/20 bg-control-bg/20 text-control-foreground flex min-h-11 w-full cursor-pointer items-start gap-3 rounded-md border px-4 py-3 text-left transition-colors;
   transition:
     transform 120ms ease-out,
     opacity 120ms ease-out;
@@ -50,11 +50,11 @@
 }
 
 .label {
-  @apply flex-1 text-sm font-medium;
+  @apply text-sm;
 }
 
 .suffix {
-  @apply text-foreground-muted ml-auto flex shrink-0 items-center;
+  @apply text-foreground-muted ml-auto flex shrink-0 items-start pt-0.5;
 }
 
 /* ===== Button variant ===== */
@@ -86,4 +86,10 @@
 
 .checked .indicator {
   @apply text-primary border-none bg-transparent;
+}
+
+/* ===== Remove Button ===== */
+
+.remove {
+  @apply hover:bg-control-hover text-foreground-muted hover:text-foreground mt-[-3px] -mr-1 flex size-6 items-center justify-center rounded-sm transition-colors;
 }

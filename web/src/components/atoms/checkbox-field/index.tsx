@@ -114,20 +114,22 @@ function CheckboxGroup({
                   {checked && <Check className={cn('size-5 stroke-3', color.text)} />}
                 </span>
 
-                <span className={styles.label}>{option.label}</span>
+                <span className={styles.label}>
+                  <span className="mr-2 text-sm font-semibold">{option.value}</span>
+                  <span className="text-foreground-subtle text-xs">{option.label}</span>
+                </span>
 
                 <span className={styles.suffix}>
                   {option.onRemove ? (
-                    <button
-                      type="button"
-                      className="text-foreground-muted hover:text-foreground flex items-center"
+                    <span
+                      className={styles.remove}
                       onClick={(event) => {
                         event.stopPropagation()
                         option.onRemove?.()
                       }}
                     >
-                      <X className="size-4" />
-                    </button>
+                      <X className="size-3.5" />
+                    </span>
                   ) : (
                     (option.suffix ?? (
                       <div

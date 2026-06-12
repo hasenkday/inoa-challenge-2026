@@ -4,7 +4,7 @@ import type { SearchPopoverOption } from '@/components/molecules/search-popover/
 export function createStockOption(option: SearchPopoverOption): CheckboxOption {
   return {
     value: option.value,
-    label: `${option.value} (${option.label})`,
+    label: option.label,
     color: 'chart-blue',
   }
 }
