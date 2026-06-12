@@ -1,6 +1,7 @@
 import { Info } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { getStockBehaviorLabel } from '@/lib/stock-behavior'
 import { cn, formatCurrency } from '@/lib/utils'
 
 import styles from './comparison-table.module.css'
@@ -107,7 +108,7 @@ export const TableColumns: ComparisonColumnDef[] = [
     header: () => (
       <HeaderWithTooltip
         label="Comportamento"
-        tooltip="Classificação simples baseada na variação do ativo no período."
+        tooltip="Indica se o ativo registrou mais movimentos de alta, de baixa ou comportamento equilibrado ao longo do período analisado."
       />
     ),
     meta: {
@@ -116,12 +117,12 @@ export const TableColumns: ComparisonColumnDef[] = [
     cell: ({ row }) => (
       <span
         className={cn(
-          row.original.behavior === '↗ Predominância de alta' && styles.positive,
-          row.original.behavior === '↘ Predominância de baixa' && styles.negative,
-          row.original.behavior === '→ Oscilação lateral' && styles.neutral
+          row.original.behavior === 'predominantlyUp' && styles.positive,
+          row.original.behavior === 'predominantlyDown' && styles.negative,
+          row.original.behavior === 'sideways' && styles.neutral
         )}
       >
-        {row.original.behavior}
+        {getStockBehaviorLabel(row.original.behavior)}
       </span>
     ),
   },

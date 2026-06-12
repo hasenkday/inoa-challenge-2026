@@ -1,9 +1,6 @@
 import { type ColumnDef } from '@tanstack/react-table'
 
-export type AssetBehavior =
-  | '↗ Predominância de alta'
-  | '↘ Predominância de baixa'
-  | '→ Oscilação lateral'
+import type { StockBehavior } from '@/api/types'
 
 export type ComparisonTableRow = {
   asset: string
@@ -13,7 +10,7 @@ export type ComparisonTableRow = {
   initialPrice: number
   finalPrice: number
   variation: number
-  behavior: AssetBehavior
+  behavior: StockBehavior
 }
 
 export type ComparisonTableProps = {

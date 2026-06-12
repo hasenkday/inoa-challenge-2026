@@ -1,20 +1,6 @@
 import { subMonths, subYears } from 'date-fns'
 
-import type { CheckboxOption } from '@/components/atoms/checkbox-field/types'
 import type { DateRangePreset } from '@/components/molecules/date-range-picker/date-range-picker.types'
-
-export const stockOptions: CheckboxOption[] = [
-  {
-    value: 'VALE3',
-    label: 'VALE3 (Vale)',
-    color: 'chart-green',
-  },
-  {
-    value: 'PETR4',
-    label: 'PETR4 (Petrobras)',
-    color: 'chart-yellow',
-  },
-]
 
 export const stockPresets: DateRangePreset[] = [
   {

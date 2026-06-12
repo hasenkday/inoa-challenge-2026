@@ -1,17 +1,7 @@
 import type { StockComparisonItem } from '@/api/types'
 import { getStockColor } from '@/lib/stock-colors'
 
-import type { AssetBehavior, ComparisonTableRow } from './types'
-
-function getBehaviorLabel(behavior: StockComparisonItem['behavior']): AssetBehavior {
-  const behaviorMap = {
-    predominantlyUp: '↗ Predominância de alta',
-    predominantlyDown: '↘ Predominância de baixa',
-    sideways: '→ Oscilação lateral',
-  } as const
-
-  return behaviorMap[behavior]
-}
+import type { ComparisonTableRow } from './types'
 
 export function mapComparisonToTableRows(comparison: StockComparisonItem[]): ComparisonTableRow[] {
   return comparison.map((item, index) => ({
@@ -20,6 +10,6 @@ export function mapComparisonToTableRows(comparison: StockComparisonItem[]): Com
     initialPrice: item.initialValue,
     finalPrice: item.finalValue,
     variation: item.variationPercent,
-    behavior: getBehaviorLabel(item.behavior),
+    behavior: item.behavior,
   }))
 }
