@@ -1,12 +1,10 @@
 import type { CheckboxOption } from '@/components/atoms/checkbox-field/types'
 import type { SearchPopoverOption } from '@/components/molecules/search-popover/types'
-import { getStockColor } from '@/lib/stock-colors'
 
-export function createStockOption(option: SearchPopoverOption, colorIndex: number): CheckboxOption {
+export function createStockOption(option: SearchPopoverOption): CheckboxOption {
   return {
     value: option.value,
     label: option.label,
-    color: getStockColor(colorIndex),
   }
 }
 
@@ -17,9 +15,7 @@ export function addStockToSelection(
 ) {
   const alreadyExists = stockOptions.some((stock) => stock.value === option.value)
 
-  const nextOptions = alreadyExists
-    ? stockOptions
-    : [...stockOptions, createStockOption(option, stockOptions.length)]
+  const nextOptions = alreadyExists ? stockOptions : [...stockOptions, createStockOption(option)]
 
   const nextSelectedStocks = selectedStocks.includes(option.value)
     ? selectedStocks
@@ -29,11 +25,4 @@ export function addStockToSelection(
     nextOptions,
     nextSelectedStocks,
   }
-}
-
-export function normalizeStockColors(stockOptions: CheckboxOption[]) {
-  return stockOptions.map((stock, index) => ({
-    ...stock,
-    color: getStockColor(index),
-  }))
 }

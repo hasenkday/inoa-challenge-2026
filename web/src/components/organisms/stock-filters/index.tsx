@@ -12,7 +12,7 @@ import { SearchPopover } from '@/components/molecules/search-popover'
 import type { SearchPopoverOption } from '@/components/molecules/search-popover/types'
 
 import { stockPresets } from './constants'
-import { addStockToSelection, normalizeStockColors } from './functions'
+import { addStockToSelection } from './functions'
 import { stocksStorage } from './storage'
 
 type StockFiltersProps = {
@@ -24,9 +24,7 @@ type StockFiltersProps = {
 export function StockFilters({ onSubmit, onClearResult, loading = false }: StockFiltersProps) {
   const [hasPendingChanges, setHasPendingChanges] = useState(false)
 
-  const [stockOptionsList, setStockOptionsList] = useState(() =>
-    normalizeStockColors(stocksStorage.getOptions())
-  )
+  const [stockOptionsList, setStockOptionsList] = useState(() => stocksStorage.getOptions())
   const [selectedStocks, setSelectedStocks] = useState(() => stocksStorage.getSelectedTickers())
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() =>
     stocksStorage.getDateRange()
@@ -69,9 +67,7 @@ export function StockFilters({ onSubmit, onClearResult, loading = false }: Stock
       endDate: format(dateRange.to, 'yyyy-MM-dd'),
     })
 
-    const normalizedOptions = normalizeStockColors(stockOptionsList)
-
-    stocksStorage.saveOptions(normalizedOptions)
+    stocksStorage.saveOptions(stockOptionsList)
     stocksStorage.saveSelectedTickers(selectedStocks)
     stocksStorage.saveDateRange(dateRange)
 
@@ -85,12 +81,25 @@ export function StockFilters({ onSubmit, onClearResult, loading = false }: Stock
       selectedStocks
     )
 
-    const normalizedOptions = normalizeStockColors(nextOptions)
-
-    setStockOptionsList(normalizedOptions)
+    setStockOptionsList(nextOptions)
     setSelectedStocks(nextSelectedStocks)
-    stocksStorage.saveOptions(normalizedOptions)
+    stocksStorage.saveOptions(nextOptions)
     setHasPendingChanges(true)
+  }
+
+  function handleRemoveStock(stockValue: string) {
+    const isSelected = selectedStocks.includes(stockValue)
+
+    const nextOptions = stockOptionsList.filter((stock) => stock.value !== stockValue)
+    const nextSelectedStocks = selectedStocks.filter((stock) => stock !== stockValue)
+
+    setStockOptionsList(nextOptions)
+    setSelectedStocks(nextSelectedStocks)
+    setHasPendingChanges(true)
+
+    if (!isSelected) {
+      stocksStorage.saveOptions(nextOptions)
+    }
   }
 
   async function handleSearchChange(query: string) {
@@ -111,22 +120,6 @@ export function StockFilters({ onSubmit, onClearResult, loading = false }: Stock
       )
     } finally {
       setIsSearching(false)
-    }
-  }
-
-  function handleRemoveStock(stockValue: string) {
-    const isSelected = selectedStocks.includes(stockValue)
-
-    const nextOptions = stockOptionsList.filter((stock) => stock.value !== stockValue)
-    const nextSelectedStocks = selectedStocks.filter((stock) => stock !== stockValue)
-    const normalizedOptions = normalizeStockColors(nextOptions)
-
-    setStockOptionsList(normalizedOptions)
-    setSelectedStocks(nextSelectedStocks)
-    setHasPendingChanges(true)
-
-    if (!isSelected) {
-      stocksStorage.saveOptions(normalizedOptions)
     }
   }
 
