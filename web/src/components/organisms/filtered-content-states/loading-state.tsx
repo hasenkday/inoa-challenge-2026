@@ -7,7 +7,7 @@ import styles from '@/pages/home/home.module.css'
 
 export function LoadingState() {
   return (
-    <>
+    <div className="flex flex-col gap-12">
       <div className={styles.dashboard}>
         <Card className={styles.chartCard}>
           <CardContent className={styles.chartContent}>
@@ -15,13 +15,13 @@ export function LoadingState() {
           </CardContent>
         </Card>
 
-        <div className="flex w-full flex-col gap-3 lg:w-[360px]">
+        <div className="mt-5 flex w-full flex-col gap-10 lg:w-[360px]">
           <SummarySkeleton />
           <SimulationSkeleton />
         </div>
       </div>
 
       <ComparisonTableSkeleton />
-    </>
+    </div>
   )
 }
