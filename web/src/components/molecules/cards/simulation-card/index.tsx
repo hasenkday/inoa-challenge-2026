@@ -9,6 +9,15 @@ type SimulationCardProps = {
 }
 
 export function SimulationCard({ simulation }: SimulationCardProps) {
+  const simulationAmount = 1000
+
+  function getSimulationClass(finalAmount: number) {
+    if (finalAmount > simulationAmount) return styles.positive
+    if (finalAmount < simulationAmount) return styles.negative
+
+    return styles.neutral
+  }
+
   return (
     <Card className={styles.cardRoot}>
       <CardHeader className={styles.cardHeader}>
@@ -21,14 +30,18 @@ export function SimulationCard({ simulation }: SimulationCardProps) {
       <CardContent className={cn(styles.cardContent, 'flex flex-row lg:flex-col')}>
         <div className="flex flex-1 flex-col gap-1">
           <p className="text-sm font-normal">R$ 1.000 em {simulation.best.ticker}</p>
-          <span className="text-foreground-success text-sm font-bold">
+          <span
+            className={cn('text-sm font-bold', getSimulationClass(simulation.best.finalAmount))}
+          >
             {formatCurrency(simulation.best.finalAmount)}
           </span>
         </div>
 
         <div className="flex flex-1 flex-col gap-1">
           <p className="text-sm font-normal">R$ 1.000 em {simulation.worst.ticker}</p>
-          <span className="text-foreground-error text-sm font-bold">
+          <span
+            className={cn('text-sm font-bold', getSimulationClass(simulation.worst.finalAmount))}
+          >
             {formatCurrency(simulation.worst.finalAmount)}
           </span>
         </div>

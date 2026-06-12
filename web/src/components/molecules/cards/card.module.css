@@ -11,3 +11,15 @@
 .cardContent {
   @apply gap-5 px-5 pb-5;
 }
+
+.positive {
+  @apply text-foreground-success;
+}
+
+.negative {
+  @apply text-foreground-error;
+}
+
+.neutral {
+  @apply text-foreground-muted;
+}

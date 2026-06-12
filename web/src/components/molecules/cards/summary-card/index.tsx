@@ -10,6 +10,22 @@ type SummaryCardProps = {
 }
 
 export function SummaryCard({ summary, period }: SummaryCardProps) {
+  function getVariationClass(value: number) {
+    if (value > 0) return styles.positive
+    if (value < 0) return styles.negative
+
+    return styles.neutral
+  }
+
+  function formatVariation(value: number) {
+    const sign = value > 0 ? '+' : ''
+
+    return `${sign}${value.toFixed(2)}%`
+  }
+
+  const bestPerformance = summary.bestPerformance.variationPercent
+  const worstPerformance = summary.worstPerformance.variationPercent
+
   return (
     <Card className={styles.cardRoot}>
       <CardHeader className={styles.cardHeader}>
@@ -25,8 +41,8 @@ export function SummaryCard({ summary, period }: SummaryCardProps) {
           <p className="text-xs font-normal">Melhor desempenho</p>
           <div className="flex flex-row items-baseline gap-4">
             <span className="text-lg font-medium">{summary.bestPerformance.ticker}</span>
-            <span className="text-foreground-success text-sm font-bold">
-              +{summary.bestPerformance.variationPercent.toFixed(2)}%
+            <span className={cn('text-sm font-bold', getVariationClass(bestPerformance))}>
+              {formatVariation(bestPerformance)}
             </span>
           </div>
         </div>
@@ -35,8 +51,8 @@ export function SummaryCard({ summary, period }: SummaryCardProps) {
           <p className="text-xs font-normal">Menor desempenho</p>
           <div className="flex flex-row items-baseline gap-4">
             <span className="text-lg font-medium">{summary.worstPerformance.ticker}</span>
-            <span className="text-foreground-error text-sm font-bold">
-              {summary.worstPerformance.variationPercent.toFixed(2)}%
+            <span className={cn('text-sm font-bold', getVariationClass(worstPerformance))}>
+              {formatVariation(worstPerformance)}
             </span>
           </div>
         </div>
