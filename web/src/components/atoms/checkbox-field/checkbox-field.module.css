@@ -13,7 +13,7 @@
 }
 
 .group {
-  @apply flex flex-wrap gap-1 overflow-auto pr-1 pb-4;
+  @apply flex flex-wrap gap-1 overflow-auto pt-1 pr-1 pb-3;
 }
 
 .groupLabel {
