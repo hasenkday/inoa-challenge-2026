@@ -30,8 +30,8 @@ export default function HomePage() {
 
   const feedbackContent = {
     variant: 'warning' as const,
-    title: 'Consulta parcial',
-    description: warnings.join(' '),
+    title: `Consulta parcial (${warnings.length})`,
+    description: warnings.join(' • '),
   }
   const feedback = warnings.length > 0 ? feedbackContent : null
 

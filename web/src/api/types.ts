@@ -73,3 +73,10 @@ export type SearchStocksResponse = {
   message: string
   data: StockSearchItem[]
 }
+
+// API error response -----------------------------
+
+export type ApiErrorResponse = {
+  message: string
+  statusCode?: number
+}
