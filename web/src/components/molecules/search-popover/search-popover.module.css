@@ -1,7 +1,7 @@
 @reference "../../../themes/index.css";
 
 .trigger {
-  @apply w-full gap-2 py-5;
+  @apply w-full gap-2 py-5 text-sm font-normal;
 }
 
 .content {

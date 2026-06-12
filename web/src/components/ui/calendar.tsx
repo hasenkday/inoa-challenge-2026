@@ -190,7 +190,7 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'data-[selected-single=true]:bg-primary data-[selected-single=true]:text-neutral-darkest data-[range-middle=true]:bg-surface-primary data-[range-middle=true]:text-foreground-primary data-[range-start=true]:bg-primary data-[range-start=true]:text-neutral-darkest data-[range-end=true]:bg-primary data-[range-end=true]:text-neutral-darkest group-data-[focused=true]/day:border-control-border-focus group-data-[focused=true]/day:ring-control-border-focus/30 flex h-10 w-10 min-w-10 flex-col gap-1 text-sm leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md [&>span]:text-xs [&>span]:opacity-70',
+        'data-[selected-single=true]:bg-primary data-[range-middle=true]:bg-surface-primary data-[range-middle=true]:text-foreground-primary data-[range-start=true]:bg-primary data-[range-end=true]:bg-primary group-data-[focused=true]/day:border-control-border-focus group-data-[focused=true]/day:ring-control-border-focus/30 flex h-10 w-10 min-w-10 flex-col gap-1 text-sm leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:text-white data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:text-white data-[selected-single=true]:text-white [&>span]:text-xs [&>span]:opacity-70',
         defaultClassNames.day,
         className
       )}

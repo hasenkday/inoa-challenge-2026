@@ -18,9 +18,10 @@ import { stocksStorage } from './storage'
 type StockFiltersProps = {
   onSubmit: (filters: GetStocksParams) => Promise<void>
   loading?: boolean
+  onClearResult?: () => void
 }
 
-export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
+export function StockFilters({ onSubmit, onClearResult, loading = false }: StockFiltersProps) {
   const [hasPendingChanges, setHasPendingChanges] = useState(false)
 
   const [stockOptionsList, setStockOptionsList] = useState(() =>
@@ -34,6 +35,10 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
   const [searchResults, setSearchResults] = useState<SearchPopoverOption[]>([])
   const [isSearching, setIsSearching] = useState(false)
 
+  const hasDateRange = !!dateRange?.from && !!dateRange?.to
+  const hasSelectedStocks = selectedStocks.length > 0
+  const canSubmitChanges = hasDateRange && hasPendingChanges && !loading
+
   function handleStocksChange(value: string[]) {
     setSelectedStocks(value)
     setHasPendingChanges(true)
@@ -45,7 +50,18 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
   }
 
   async function handleSubmit() {
-    if (!canSearch || !dateRange?.from || !dateRange?.to) return
+    if (!canSubmitChanges || !dateRange?.from || !dateRange?.to) return
+
+    if (!hasSelectedStocks) {
+      stocksStorage.saveOptions(stockOptionsList)
+      stocksStorage.saveSelectedTickers([])
+      stocksStorage.saveDateRange(dateRange)
+      stocksStorage.clearStocksResult()
+
+      onClearResult?.()
+      setHasPendingChanges(false)
+      return
+    }
 
     await onSubmit({
       tickers: selectedStocks,
@@ -62,13 +78,6 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
     setHasPendingChanges(false)
   }
 
-  const canSearch =
-    selectedStocks.length > 0 &&
-    !!dateRange?.from &&
-    !!dateRange?.to &&
-    hasPendingChanges &&
-    !loading
-
   function handleAddStock(option: SearchPopoverOption) {
     const { nextOptions, nextSelectedStocks } = addStockToSelection(
       option,
@@ -80,8 +89,8 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
 
     setStockOptionsList(normalizedOptions)
     setSelectedStocks(nextSelectedStocks)
-
     stocksStorage.saveOptions(normalizedOptions)
+    setHasPendingChanges(true)
   }
 
   async function handleSearchChange(query: string) {
@@ -114,6 +123,7 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
 
     setStockOptionsList(normalizedOptions)
     setSelectedStocks(nextSelectedStocks)
+    setHasPendingChanges(true)
 
     if (!isSelected) {
       stocksStorage.saveOptions(normalizedOptions)
@@ -179,10 +189,10 @@ export function StockFilters({ onSubmit, loading = false }: StockFiltersProps) {
           color="primary"
           variant="fill"
           size="sm"
-          disabled={!canSearch}
+          disabled={!canSubmitChanges}
           onClick={handleSubmit}
         >
-          {loading ? 'Comparando...' : 'Comparar ativos'}
+          {loading ? 'Buscando...' : 'Analisar ativos'}
         </Button>
       </div>
     </div>

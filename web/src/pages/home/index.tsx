@@ -65,10 +65,22 @@ export default function HomePage() {
     exportStocksToCsv(stocksResult.chartData, selectedTickers)
   }
 
+  function handleClearResult() {
+    setStocksResult(null)
+    setSelectedTickers([])
+    setWarnings([])
+    setContentError(null)
+  }
+
   return (
     <div className={styles.root}>
       <div>
-        <SidePanel onSubmit={handleSubmit} loading={isLoading} feedback={feedback} />
+        <SidePanel
+          onSubmit={handleSubmit}
+          onClearResult={handleClearResult}
+          loading={isLoading}
+          feedback={feedback}
+        />
       </div>
 
       <div id="filtered-content" className={styles.contentWrapper}>

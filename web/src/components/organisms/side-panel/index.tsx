@@ -19,9 +19,10 @@ type SidePanelProps = {
     title: string
     description?: string
   } | null
+  onClearResult?: () => void
 }
 
-export function SidePanel({ onSubmit, loading = false, feedback }: SidePanelProps) {
+export function SidePanel({ onSubmit, loading = false, feedback, onClearResult }: SidePanelProps) {
   const [isLight, setIsLight] = useState(false)
   function handleThemeChange(checked: boolean) {
     setIsLight(checked)
@@ -32,10 +33,10 @@ export function SidePanel({ onSubmit, loading = false, feedback }: SidePanelProp
     <div className={cn(styles.root)}>
       <div>
         <span className={styles.app_title}>B3 Stock Viewer</span>
-        <p className={styles.subtitle}>Visualize o histórico de valores dos ativos da B3</p>
+        <p className={styles.subtitle}>Acompanhe e analise os ativos da B3</p>
       </div>
 
-      <StockFilters onSubmit={onSubmit} loading={loading} />
+      <StockFilters onSubmit={onSubmit} onClearResult={onClearResult} loading={loading} />
 
       <div className="flex flex-col gap-2">
         {feedback && (
