@@ -55,6 +55,7 @@ export function SimulationCard({ simulation }: SimulationCardProps) {
           </label>
 
           <CurrencyInput
+            className="w-50 lg:w-full"
             value={investmentAmount}
             onValueChange={(value) => {
               setInvestmentAmount(value)
