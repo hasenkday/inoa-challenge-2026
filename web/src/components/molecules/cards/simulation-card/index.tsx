@@ -46,7 +46,8 @@ export function SimulationCard({ simulation }: SimulationCardProps) {
         <CardTitle>Simulação</CardTitle>
 
         <CardDescription className="text-xs">
-          Compare quanto cada ativo teria rendido ao investir no início do período.
+          Estima quanto o valor aplicado teria retornado ao comprar o ativo no início e vender ao
+          final do período.
         </CardDescription>
 
         <div className="flex flex-col gap-1 pt-2">
@@ -93,6 +94,10 @@ export function SimulationCard({ simulation }: SimulationCardProps) {
             {formatCurrency(worstFinalAmount)}
           </span>
         </div>
+
+        <span className="text-foreground-subtle text-xs">
+          Não inclui dividendos, taxas, impostos ou reinvestimentos.
+        </span>
       </CardContent>
     </Card>
   )

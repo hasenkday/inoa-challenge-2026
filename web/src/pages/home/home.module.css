@@ -20,7 +20,7 @@
 
 /* Chart card styles */
 .chartCard {
-  @apply light:bg-neutral-white bg-foreground/2 flex min-h-[510px] w-full flex-col border-none lg:h-[441px] lg:self-stretch;
+  @apply light:bg-neutral-white bg-foreground/2 flex min-h-[574px] w-full flex-col border-none lg:h-[441px] lg:self-stretch;
 }
 
 .chartContent {
